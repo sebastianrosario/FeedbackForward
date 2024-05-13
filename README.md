@@ -4,6 +4,26 @@
 2. MongoDB
 3. Ubuntu Instance
 
+## MongoDB Setup
+```
+mongosh // to get into mongodb shell
+use ff_users
+db.createCollection("users")
+db.createUser(
+    {
+        name: "ff_login",
+        pwd: "test123",
+        role: {
+            role: "readWrite", 
+            db: "ff_users"
+        }
+    }
+)
+
+// exit mongoshell
+mongod --auth --port 27017 // make authentication mandatory, will restart mongo daemon
+```
+
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
