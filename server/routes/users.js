@@ -9,5 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/users', UserController.createUser);
 router.get('/users/:uid', UserController.getUserById);
+router.post('/users/login', UserController.compPassword)
 
 module.exports = router;
