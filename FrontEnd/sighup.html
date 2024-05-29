@@ -1,0 +1,49 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Sigh In</title>
+        <link rel="stylesheet" href="./assets/css/Style.css">
+        <script src="https://kit.fontawesome.com/4665cd47d5.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+         <div class="container">
+            <div class="form-box">
+                <h1 id=tittle>Sign Up</h1>
+                <form>
+                    <div class="imput-group">
+                        <div class="imput-field" id="nameField">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" placeholder="User Name">
+                        </div>
+
+                        <div class="imput-field" id="emailField">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="Email">
+                        </div>
+
+                        <div class="imput-field">
+                            <i class="fa-solid fa-key" id="password"></i>
+                            <input type="password" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <button class="button" type="button" id="signupbutton" >Sigh Up</button>
+                    <button class="button" type="button" id="signinbutton" >Sigh in</button>
+                </form>
+            </div>
+         </div>
+
+<script>
+    let signupbutton = document.getElementById("signupbutton");
+    let signinbutton = document.getElementById("signinbutton");
+    let nameField = document.getElementById("nameField");
+    let emailField = document.getElementById("emailField");
+    let title = document.getElementById("title");
+
+    signinbutton.onclick = function(){
+        window.location.href = "sighin.html";
+    }
+
+</script>
+    </body>
+</html>
