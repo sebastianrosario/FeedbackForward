@@ -11,12 +11,9 @@ use ff_users
 db.createCollection("users")
 db.createUser(
     {
-        name: "ff_login",
+        user: "ff_login",
         pwd: "test123",
-        role: {
-            role: "readWrite", 
-            db: "ff_users"
-        }
+        roles: [ { role: "readWrite", db: "ff_users" } ] 
     }
 )
 
