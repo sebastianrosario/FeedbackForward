@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Display Payload</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-box">
+                <h1>Payload Information</h1>
+                <div id="payloadDisplay"></div>
+                <button onclick="clearStorage()">Clear Storage</button>
+            </div>
+        </div>
+
+        <script>
+            // Retrieve the payload from localStorage
+            const payload = JSON.parse(localStorage.getItem('signupPayload'));
+
+            // Display the payload in the div
+            const payloadDisplay = document.getElementById('payloadDisplay');
+            payloadDisplay.innerHTML = `<pre>${JSON.stringify(payload, null, 2)}</pre>`;
+
+            // Function to clear localStorage
+            function clearStorage() {
+                localStorage.removeItem('signupPayload');
+                payloadDisplay.innerHTML = 'Payload has been cleared.';
+            }
+        </script>
+    </body>
+</html>
