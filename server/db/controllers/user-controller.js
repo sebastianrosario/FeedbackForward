@@ -37,8 +37,6 @@ compPassword = async (req, res) => {
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (compPassword) User not found!");
         }
-        console.log(body);
-        console.log(data.password);
 
         const result = await bcrypt.compareSync(body.password, data.password);
         if(!result){
@@ -78,8 +76,7 @@ createUser = async(req, res) => {
             });
     }
 
-    let user = new UserModel(body);
-
+    var user = new UserModel(body);
     if (!user) {
         console.error(`[Feedback-Forward] - 400 - (createUser) 'User' is malformed.`);
         return res
@@ -90,15 +87,8 @@ createUser = async(req, res) => {
             });
     }
 
-    // hashing password, no clue what its gonna do
-    const hashedPassword = await bcrypt.hashSync(user.password, saltRounds);
-    console.log(hashedPassword);
-
-    // console.log('----------------------- createUser: User -----------------------')
-    // console.log(User);
     try{
-        user.password = hashedPassword;
-        const success = user.save();
+        await user.save();
     }
     catch(error){
         return res
