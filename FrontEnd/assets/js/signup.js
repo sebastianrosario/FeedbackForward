@@ -22,7 +22,7 @@ signupbutton.onclick = function() {
     });
 
     /***Used for testing the payload contents***/
-    fetch('http://localhost:3000/api/users', {
+    fetch('http://192.168.28.129:3000/api/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
