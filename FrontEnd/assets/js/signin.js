@@ -14,10 +14,10 @@ signinbutton.onclick = function() {
     const hashedPassword = CryptoJS.SHA256(password).toString();
 
     // Create a payload
-    const payload = {
+    const payload = JSON.stringify({
         username: username,
         password: hashedPassword
-    };
+    });
 
     fetch('http://localhost:3000/api/users/login', {
         method: 'POST',

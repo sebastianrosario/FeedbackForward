@@ -15,11 +15,11 @@ signupbutton.onclick = function() {
     const hashedPassword = CryptoJS.SHA256(password).toString();
 
     // Create a payload
-    const payload = {
+    const payload = JSON.stringify({
         username: username,
         email: email,
         password: hashedPassword
-    };
+    });
 
     /***Used for testing the payload contents***/
     fetch('http://localhost:3000/api/users', {
