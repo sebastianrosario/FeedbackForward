@@ -1,7 +1,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sign In</title>
+        <title>Sign Up</title>
         <link rel="stylesheet" href="./assets/css/Style.css">
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
         <script src="https://kit.fontawesome.com/4665cd47d5.js" crossorigin="anonymous"></script>
@@ -34,37 +34,6 @@
                 </form>
             </div>
          </div>
-
-        <script>
-            let signupbutton = document.getElementById("signupbutton");
-            let signinbutton = document.getElementById("signinbutton");
-
-            signinbutton.onclick = function() {
-                window.location.href = "signin.html";
-            }
-
-            signupbutton.onclick = function() {
-                // Get form data
-                const username = document.getElementById("username").value;
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
-
-                // Hash the password using CryptoJS
-                const hashedPassword = CryptoJS.SHA256(password).toString();
-
-                // Create a payload
-                const payload = {
-                    username: username,
-                    email: email,
-                    password: hashedPassword
-                };
-
-                /***Used for testing the payload contents***/
-                localStorage.setItem('signupPayload', JSON.stringify(payload));
-                window.location.href = "display.html";
-
-                /***/
-            }
-        </script>
+         {<script src="./assets/js/signup.js"></script>}
     </body>
 </html>
