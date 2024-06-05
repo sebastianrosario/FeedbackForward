@@ -19,6 +19,30 @@ signinbutton.onclick = function() {
         password: hashedPassword
     };
 
+    fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: payload
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Sign in successful');
+            console.log("success");
+            localStorage.setItem('signupPayload', JSON.stringify(payload));
+            window.location.href = "display.html";
+        } else {
+            alert('Sign up failed: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Sign in failed');
+    });
+ 
+
     /***Used for testing the payload contents***/
     localStorage.setItem('signupPayload', JSON.stringify(payload));
     window.location.href = "display.html";
