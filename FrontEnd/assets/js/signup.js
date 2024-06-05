@@ -34,7 +34,7 @@ signupbutton.onclick = function() {
         if (data.success) {
             alert('Sign up successful');
             localStorage.setItem('signupPayload', JSON.stringify(payload));
-            window.location.href = "display.html";
+            window.location.href = "index.html";
         } else {
             alert('Sign up failed: ' + data.message);
         }

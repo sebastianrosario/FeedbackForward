@@ -32,7 +32,7 @@ signinbutton.onclick = function() {
             alert('Sign in successful');
             console.log("success");
             localStorage.setItem('signupPayload', JSON.stringify(payload));
-            window.location.href = "display.html";
+            window.location.href = "index.html";
         } else {
             alert('Sign up failed: ' + data.message);
         }
@@ -41,11 +41,7 @@ signinbutton.onclick = function() {
         console.error('Error:', error);
         alert('Sign in failed');
     });
- 
-
     /***Used for testing the payload contents***/
-    localStorage.setItem('signupPayload', JSON.stringify(payload));
-    window.location.href = "display.html";
 
     /***/
 }
