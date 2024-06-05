@@ -4,11 +4,11 @@ const saltRounds = 10;
 
 getUserById = async (req, res) => {
     try {
-        const data = await UserModel.find({ username: req.params.uid });
+        const data = await UserModel.findOne({ username: req.params.uid });
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getUserById) User not found!");
         }
-
+        data.password = "redacted"; 
         return res
             .status(200)
             .json({
@@ -22,7 +22,7 @@ getUserById = async (req, res) => {
             .status(404)
             .json(
                 {
-                    succes: false,
+                    success: false,
                     error: "User not found!"
                 }
             )
@@ -56,7 +56,7 @@ compPassword = async (req, res) => {
             .status(404)
             .json(
                 {
-                    succes: false,
+                    success: false,
                     error: error
                 }
             )
