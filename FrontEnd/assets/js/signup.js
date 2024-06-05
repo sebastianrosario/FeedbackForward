@@ -22,7 +22,23 @@ signupbutton.onclick = function() {
     };
 
     /***Used for testing the payload contents***/
-    localStorage.setItem('signupPayload', JSON.stringify(payload));
-    window.location.href = "display.html";
+    fetch('http://localhost:3000/api/users', {
+        method: 'POST',
+        body: payload
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Sign up successful');
+            localStorage.setItem('signupPayload', JSON.stringify(payload));
+            window.location.href = "display.html";
+        } else {
+            alert('Sign up failed: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Sign up failed');
+    });
     /***/
 }
