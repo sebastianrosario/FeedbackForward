@@ -6,8 +6,8 @@ change font to something that may fit our theme later
 :root{
     --light-color: #fff;
     --light-color-alt: #afb6cd;
-    --primary-background-color: #131417;
-    --secondary-background-color: #252830;
+    --primary-background-color: rgb(7, 51, 74);
+    --secondary-background-color: rgba(230, 91, 5, 0.445);
     --hover-light-color: var(--light-color);
     --hover-dark-color: var(--primary-background-color);
     --gradient-color: linear-gradient(
@@ -62,26 +62,71 @@ li{
     list-style-type:none;  
 }
 
-input,
-buttons{
-    font: inherit;
-    color: inherit;
-    border: none;
-    background-color: transparent;
-    outline: none;
+.btn {
+    background-color: transparent; /* Make the background transparent */
+    color: var(--light-color); /* Text color */
+    padding: 5px 10px; /* Padding for the button */
+    cursor: pointer; /* Change cursor on hover */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-i{
+.btn:hover {
+    background-color: var(--transparent-light-color); /* Slight background color on hover */
+}
+
+/* Icon styles */
+i {
     font-size: var(--font-size-md);
 }
 
-
-/* Theme color change */
-
 /* Reusable classes */
+.container{
+    max-width: 160rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
 
+.place-items-center{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen-sm-hidden{
+    display: none;
+}
 /* Header */
+.header{
+    display: (var(--secondary-background-color));
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
 
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-self: space-between;
+    padding: 1.5rem;
+}
+
+.logo{
+    font-size: var(--font-size-md);
+    color: (var(--light-color));
+}
+
+.menu{
+    position: absolute;
+    top: 8.5rem;
+    width: 23rem;
+    padding: 23rem;
+    background-color: var(--secondary-background-color);
+    opacity: 0;
+}
 /* Header JavaScript Styles */
 
 /* Search */
