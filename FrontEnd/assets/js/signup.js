@@ -15,14 +15,32 @@ signupbutton.onclick = function() {
     const hashedPassword = CryptoJS.SHA256(password).toString();
 
     // Create a payload
-    const payload = {
+    const payload = JSON.stringify({
         username: username,
         email: email,
         password: hashedPassword
-    };
+    });
 
     /***Used for testing the payload contents***/
-    localStorage.setItem('signupPayload', JSON.stringify(payload));
-    window.location.href = "display.html";
-    /***/
+    fetch('http://192.168.28.129:3000/api/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: payload
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Sign up successful');
+            localStorage.setItem('signupPayload', JSON.stringify(payload));
+            window.location.href = "index.html";
+        } else {
+            alert('Sign up failed: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Sign up failed');
+    });
 }
