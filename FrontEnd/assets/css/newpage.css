@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgb(3, 77, 116), rgba(230, 93, 5, 0.3));
+    /*background-color: ;*/
+    /*background-image: linear-gradient(rgba(0,0,50,0.8), rgba(43, 3, 3, 0.08), url(background.png);*/
+    background-position: center;
+    background-color: cover;
+    position: relative;
+}
+
+.form-box{
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border:2px solid #ccc;
+    background: whitesmoke;
+}
+
+form {
+    padding: 20px; /* no clue why, but it needs to be here*/
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgb(230, 93, 5);
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: rgb(230, 93,5);
+    border: 0;
+    border-radius: 56px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 0;
+    padding: 16px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+input[type="submit"]:before {
+    background-color: initial;
+    background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+    border-radius: 125px;
+    content: "";
+    height: 50%;
+    left: 4%;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    transition: all .3s;
+    width: 92%;
+}
+
+input[type="submit"]:hover {
+    background-color: rgba(230, 91, 5, 0.550);
+}
