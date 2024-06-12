@@ -4,7 +4,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const body = document.getElementById('body').value;
 
-    fetch('/submit-post', {
+    fetch('http://192.168.28.129:3000/api/posts', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     .then(data => {
         if (data.success) {
             alert('Post submitted successfully!');
-            window.location.href = "index.html"; //Can change to the post it self later
+            window.location.href = "index.html"; //Can change to the post itself later
         } else {
             alert('Failed to submit post.');
         }
