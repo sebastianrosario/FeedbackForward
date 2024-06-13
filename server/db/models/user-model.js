@@ -47,5 +47,6 @@ User.pre('save', async function(next) {
 
 
 User.plugin(uniqueValidator);
+const ff_users = mongoose.connection.useDb("ff_users");
+module.exports = ff_users.model('User', User, 'users');
 
-module.exports = mongoose.model('User', User, 'users');

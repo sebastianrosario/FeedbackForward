@@ -2,7 +2,7 @@ const UserModel = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-getUserById = async (req, res) => {
+getUserByUsername = async (req, res) => {
     try {
         const data = await UserModel.findOne({ username: req.params.uid });
         if (!data) {
@@ -112,6 +112,6 @@ createUser = async(req, res) => {
 
 module.exports = {
     createUser,
-    getUserById,
+    getUserByUsername,
     compPassword
 }

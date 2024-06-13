@@ -8,7 +8,7 @@ var cors = require('cors');
 var db = require('./db/db.js');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/api', usersRouter);
+app.use('/api', apiRouter);
 
 app.all('/api', function(req, res, next) {
   next();

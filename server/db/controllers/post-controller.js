@@ -4,9 +4,36 @@ const saltRounds = 10;
 
 getPostById = async (req, res) => {
     try {
-        const data = await PostModel.find({ postid: req.params.uid });
+        const data = await PostModel.findOne({ _id: req.params.uid });
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
+        }
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: data
+            })
+    } 
+    catch (error) {
+        console.log(error);
+        return res
+            .status(404)
+            .json(
+                {
+                    succes: false,
+                    error: "Post not found!"
+                }
+            )
+    }
+};
+
+getPostByUsername = async (req, res) => {
+    try {
+        const data = await PostModel.find({ username: req.params.uid });
+        if (!data) {
+            throw new Error("[Feedback-Forward] - 404 - (getPostByUsername) Post not found!");
         }
 
         return res
@@ -37,7 +64,7 @@ createPost = async(req, res) => {
             .status(400)
             .json({
                 success: false,
-                error: 'You must provide an Post.',
+                error: 'You must provide a Post.',
             });
     }
 
@@ -53,16 +80,11 @@ createPost = async(req, res) => {
             });
     }
 
-    // hashing password, no clue what its gonna do
-    const hashedPassword = await bcrypt.hashSync(post.password, saltRounds);
-
-    // console.log('----------------------- createPost: Post -----------------------')
-    // console.log(Post);
     try{
-        post.password = hashedPassword;
-        const success = post.save();
+        await post.save();
     }
     catch(error){
+        console.log(error); 
         return res
         .status(400)
         .json({
@@ -84,5 +106,6 @@ createPost = async(req, res) => {
 
 module.exports = {
     createPost,
-    getPostById
+    getPostById,
+    getPostByUsername
 }
