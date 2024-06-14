@@ -19,5 +19,6 @@ router.post('/users/login', UserController.compPassword);
 router.post('/posts/new', PostController.createPost);
 router.get('/posts/:uid', PostController.getPostById);
 router.get('/posts/fromuser/:uid', PostController.getPostByUsername);
+router.post('/posts/comment/:uid', PostController.commentOnPost)
 
 module.exports = router;

@@ -104,8 +104,49 @@ createPost = async(req, res) => {
         });
 };
 
+commentOnPost = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        console.error(`[Feedback-Forward] - 400 - (commentOnPost) 'Comment' is not provided.`);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: `You must provide a Comment.`,
+            });
+    }
+
+    const postId = req.params.uid; 
+    try {
+        const foundPost = await PostModel.findOne({ _id: postId });
+        if (!foundPost) {
+            throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
+        }
+
+        foundPost.comments.push(body); 
+        await foundPost.save();
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: error
+            });
+    }
+
+    return res
+        .status(201)
+        .json({
+            success: true,
+            message: `Comment created on post ${postId} by ${body.username}`
+        })
+}
+
 module.exports = {
     createPost,
     getPostById,
-    getPostByUsername
+    getPostByUsername,
+    commentOnPost
 }

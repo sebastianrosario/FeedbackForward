@@ -18,6 +18,25 @@ const Post = new Schema({
       required: true
     },
     tags: [String],
+    comments: [
+      {
+        username:{
+          type: String,
+          required: true
+        },
+        content:{
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now
+        },
+        updatedAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
     createdAt: {
       type: Date,
       default: Date.now
