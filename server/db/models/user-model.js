@@ -45,6 +45,10 @@ User.pre('save', async function(next) {
   next();
 });
 
+User.methods.passwordCheck = function(plaintext) {
+  return bcrypt.compare(plaintext, this.password);
+}
+
 
 User.plugin(uniqueValidator);
 const ff_users = mongoose.connection.useDb("ff_users");

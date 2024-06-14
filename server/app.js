@@ -5,6 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+
+const passportConfig = require('./config/passport');
+
 var db = require('./db/db.js');
 
 var indexRouter = require('./routes/index');
@@ -48,3 +53,45 @@ app.use(function(err, req, res, next) {
   res.send(500);
 });
 module.exports = app;
+
+// User serlialization using passport
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, {
+      id: user.id,
+      username: user.username,
+      picture: user.picture
+    });
+  });
+});
+
+// User deserialization using passport
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
+});
+
+app.use(passport.initialize());
+   passportConfig(passport);
+
+   // Login user and generate JWT
+   app.post('/login', (req, res, next) => {
+     passport.authenticate('local', { session: false }, (err, user, info) => {
+       if (err || !user) {
+         return res.status(400).json({
+           success: false,
+           message: info ? info.message : 'Login failed',
+           user: user
+         });
+       }
+       const payload = { id: user.id, username: user.username };
+       const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
+       return res.json({ success: true, token: token });
+     })(req, res, next);
+   });
+
+   // Protected route
+   app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+     res.json({ message: 'You are authenticated!', user: req.user });
+   });
