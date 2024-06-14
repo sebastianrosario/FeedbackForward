@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "3930893b-4596-4a73-a5b8-7d4ee722b39c",
+		"name": "FeedBackForward",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34853827"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"testtesttest\",\r\n    \"password\": \"helloworld\",\r\n    \"email\":\"testingemail123@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-ip}}/api/users",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"testtesttest\",\r\n    \"password\": \"helloworld\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-ip}}{/api/users/login",
+							"host": [
+								"{{server-ip}}{"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-ip}}/api/users/{{user_name}}",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "createPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"TestTitle\",\r\n    \"content\": \"LoreumIpsumLoreumIpsumassmothafuckelalskdfjr\",\r\n    \"username\": \"testingasdfcompare5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-ip}}/api/posts/new",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-ip}}/api/posts/{{post_id}}",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostByUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-ip}}/api/posts/fromuser/{{user_name}}",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"fromuser",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: FeedBackForward
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: '{{server-ip}}'
+paths:
+  /api/users:
+    post:
+      tags:
+        - Users
+      summary: createUser
+      description: createUser
+      operationId: createuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: testingemail123@gmail.com
+                password:
+                  type: string
+                  example: helloworld
+                username:
+                  type: string
+                  example: testtesttest
+            examples:
+              createUser:
+                value:
+                  email: testingemail123@gmail.com
+                  password: helloworld
+                  username: testtesttest
+      responses:
+        '200':
+          description: ''
+  /api/users/login:
+    post:
+      tags:
+        - Users
+      summary: userLogin
+      description: userLogin
+      operationId: userlogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: helloworld
+                username:
+                  type: string
+                  example: testtesttest
+            examples:
+              userLogin:
+                value:
+                  password: helloworld
+                  username: testtesttest
+      responses:
+        '200':
+          description: ''
+  /api/users/{user_name}:
+    get:
+      tags:
+        - Users
+      summary: getUserByUsername
+      description: getUserByUsername
+      operationId: getuserbyusername
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/new:
+    post:
+      tags:
+        - Posts
+      summary: createPost
+      description: createPost
+      operationId: createpost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: LoreumIpsumLoreumIpsumassmothafuckelalskdfjr
+                title:
+                  type: string
+                  example: TestTitle
+                username:
+                  type: string
+                  example: testingasdfcompare5
+            examples:
+              createPost:
+                value:
+                  content: LoreumIpsumLoreumIpsumassmothafuckelalskdfjr
+                  title: TestTitle
+                  username: testingasdfcompare5
+      responses:
+        '200':
+          description: ''
+  /api/posts/{post_id}:
+    get:
+      tags:
+        - Posts
+      summary: getPostById
+      description: getPostById
+      operationId: getpostbyid
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/fromuser/{user_name}:
+    get:
+      tags:
+        - Posts
+      summary: getPostByUser
+      description: getPostByUser
+      operationId: getpostbyuser
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+tags:
+  - name: Users
+  - name: Posts
