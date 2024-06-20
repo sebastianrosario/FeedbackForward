@@ -44,6 +44,11 @@ body{
     background-color: var(--primary-background-color);
     letter-spacing: 1px;
     transition: background-color .25s,color .25s;
+    position: fixed;
+    top: 75;
+    left: 0;
+    width: 100%;
+    z-index: 999;
 }
 
 a{
