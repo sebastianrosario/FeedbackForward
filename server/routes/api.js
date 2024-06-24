@@ -17,8 +17,10 @@ router.post('/users/login', UserController.compPassword);
 
 // Post section
 router.post('/posts/new', PostController.createPost);
-router.get('/posts/:uid', PostController.getPostById);
+router.get('/posts/:pid', PostController.getPostById);
 router.get('/posts/fromuser/:uid', PostController.getPostByUsername);
-router.post('/posts/comment/:uid', PostController.commentOnPost)
+router.post('/posts/:pid/comment', PostController.commentOnPost);
+router.delete('/posts/:pid/comment/:cid', PostController.deleteCommentOnPost);
+
 
 module.exports = router;

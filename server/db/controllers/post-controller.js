@@ -1,10 +1,9 @@
 const PostModel = require('../models/post-model');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
+const UserModel = require('../models/user-model')
+const mongoose = require("mongoose");
 getPostById = async (req, res) => {
     try {
-        const data = await PostModel.findOne({ _id: req.params.uid });
+        const data = await PostModel.findOne({ _id: req.params.pid });
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
         }
@@ -117,7 +116,18 @@ commentOnPost = async (req, res) => {
             });
     }
 
-    const postId = req.params.uid; 
+    const userFound = await UserModel.findOne({username: body.username});
+    if(!userFound) {
+        console.error(`[Feedback-Forward] - 400 - (commentOnPost) 'username' is not found in db.`);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: `user ${body.username} not found`
+            })
+    }
+
+    const postId = req.params.pid; 
     try {
         const foundPost = await PostModel.findOne({ _id: postId });
         if (!foundPost) {
@@ -144,9 +154,58 @@ commentOnPost = async (req, res) => {
         })
 }
 
+deleteCommentOnPost = async (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        console.error(`[Feedback-Forward] - 400 - (deleteCommentOnPost) 'Comment' is not provided.`);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: `You must provide a Comment ID.`,
+            });
+    }
+
+    const postId = req.params.pid; 
+    const commentId = req.params.cid;
+    console.log(commentId);
+    try {
+        const foundPost = await PostModel.findOne({ _id: postId });
+        if (!foundPost) {
+            throw new Error("[Feedback-Forward] - 404 - (deleteCommentOnPost) Post not found!");
+        }
+
+        // Finding the index of the comment id, returns -1 if comment not found
+        const index = foundPost.comments.findIndex(comment => comment._id.toString() === commentId);
+        if(index == -1) {
+            throw new Error("[Feedback-Forward] - 404 - (deleteCommentOnPost) Comment not found!");
+        }
+
+        foundPost.comments.splice(index, 1);
+        await foundPost.save();
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: error
+            });
+    }
+
+    return res
+        .status(201)
+        .json({
+            success: true,
+            message: `Comment ${commentId} deleted on post ${postId}`
+        })
+}
+
 module.exports = {
     createPost,
     getPostById,
     getPostByUsername,
-    commentOnPost
+    commentOnPost,
+    deleteCommentOnPost
 }
