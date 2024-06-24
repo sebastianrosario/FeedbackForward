@@ -24,10 +24,7 @@
     transform: translate(-50%,-50%);
     border:2px solid #ccc;
     background: whitesmoke;
-}
-
-form {
-    padding: 20px; /* no clue why, but it needs to be here*/
+    padding: 20px;
 }
 
 input[type="text"], textarea {
