@@ -1,6 +1,8 @@
 const PostModel = require('../models/post-model');
-const UserModel = require('../models/user-model')
+const UserModel = require('../models/user-model');
 const mongoose = require("mongoose");
+
+// Get post by ID
 getPostById = async (req, res) => {
     try {
         const data = await PostModel.findOne({ _id: req.params.pid });
@@ -13,21 +15,20 @@ getPostById = async (req, res) => {
             .json({
                 success: true,
                 message: data
-            })
+            });
     } 
     catch (error) {
         console.log(error);
         return res
             .status(404)
-            .json(
-                {
-                    succes: false,
-                    error: "Post not found!"
-                }
-            )
+            .json({
+                success: false,
+                error: "Post not found!"
+            });
     }
 };
 
+// Get post by username
 getPostByUsername = async (req, res) => {
     try {
         const data = await PostModel.find({ username: req.params.uid });
@@ -40,22 +41,21 @@ getPostByUsername = async (req, res) => {
             .json({
                 success: true,
                 message: data
-            })
+            });
     } 
     catch (error) {
         console.log(error);
         return res
             .status(404)
-            .json(
-                {
-                    succes: false,
-                    error: "Post not found!"
-                }
-            )
+            .json({
+                success: false,
+                error: "Post not found!"
+            });
     }
 };
 
-createPost = async(req, res) => {
+// Create post
+createPost = async (req, res) => {
     const body = req.body;
 
     if (!body) {
@@ -79,20 +79,18 @@ createPost = async(req, res) => {
             });
     }
 
-    try{
+    try {
         await post.save();
-    }
-    catch(error){
+    } catch (error) {
         console.log(error); 
         return res
-        .status(400)
-        .json({
-            success: false,
-            error: error
-        });
+            .status(400)
+            .json({
+                success: false,
+                error: error
+            });
     }
 
-            
     console.log(`[Feedback-Forward] - 201 in 'createPost': Post created!`);
     return res
         .status(201)
@@ -103,6 +101,7 @@ createPost = async(req, res) => {
         });
 };
 
+// Comment on post
 commentOnPost = async (req, res) => {
     const body = req.body;
 
@@ -116,15 +115,15 @@ commentOnPost = async (req, res) => {
             });
     }
 
-    const userFound = await UserModel.findOne({username: body.username});
-    if(!userFound) {
+    const userFound = await UserModel.findOne({ username: body.username });
+    if (!userFound) {
         console.error(`[Feedback-Forward] - 400 - (commentOnPost) 'username' is not found in db.`);
         return res
             .status(400)
             .json({
                 success: false,
                 error: `user ${body.username} not found`
-            })
+            });
     }
 
     const postId = req.params.pid; 
@@ -151,9 +150,10 @@ commentOnPost = async (req, res) => {
         .json({
             success: true,
             message: `Comment created on post ${postId} by ${body.username}`
-        })
-}
+        });
+};
 
+// Delete comment on post
 deleteCommentOnPost = async (req, res) => {
     const body = req.body;
 
@@ -178,7 +178,7 @@ deleteCommentOnPost = async (req, res) => {
 
         // Finding the index of the comment id, returns -1 if comment not found
         const index = foundPost.comments.findIndex(comment => comment._id.toString() === commentId);
-        if(index == -1) {
+        if (index == -1) {
             throw new Error("[Feedback-Forward] - 404 - (deleteCommentOnPost) Comment not found!");
         }
 
@@ -199,13 +199,42 @@ deleteCommentOnPost = async (req, res) => {
         .json({
             success: true,
             message: `Comment ${commentId} deleted on post ${postId}`
-        })
-}
+        });
+};
+
+// Update post
+updatePost = async (req, res) => {
+    const postId = req.params.pid;
+    const updateData = req.body;
+
+    try {
+        const updatedPost = await PostModel.findByIdAndUpdate(postId, updateData, { new: true });
+        if (!updatedPost) {
+            throw new Error("[Feedback-Forward] - 404 - (updatePost) Post not found!");
+        }
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: updatedPost
+            });
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(500)
+            .json({
+                success: false,
+                error: 'Error updating post'
+            });
+    }
+};
 
 module.exports = {
     createPost,
     getPostById,
     getPostByUsername,
     commentOnPost,
-    deleteCommentOnPost
-}
+    deleteCommentOnPost,
+    updatePost  // Export the updatePost function
+};
