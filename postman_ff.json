@@ -3,7 +3,8 @@
 		"_postman_id": "3930893b-4596-4a73-a5b8-7d4ee722b39c",
 		"name": "FeedBackForward",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34853827"
+		"_exporter_id": "34853827",
+		"_collection_link": "https://feedbackforward.postman.co/workspace/FeedbackForward-Workspace~0b8fb196-f048-4901-8491-fea975818a82/collection/34853827-3930893b-4596-4a73-a5b8-7d4ee722b39c?action=share&source=collection_link&creator=34853827"
 	},
 	"item": [
 		{
@@ -38,6 +39,19 @@
 				},
 				{
 					"name": "userLogin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"jwt_token\",jsonData[\"token\"]);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -51,9 +65,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{server-ip}}{/api/users/login",
+							"raw": "{{server-ip}}/api/users/login",
 							"host": [
-								"{{server-ip}}{"
+								"{{server-ip}}"
 							],
 							"path": [
 								"api",
@@ -67,6 +81,16 @@
 				{
 					"name": "getUserByUsername",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -82,6 +106,66 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picPath\": \"helloworld\",\r\n    \"asodijf\": \"etest\",\r\n    \"helloworld\": \"hello!\",\r\n    \"email\": \"changedemail@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-ip}}/api/users/{{user_name}}",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -89,13 +173,77 @@
 			"name": "Posts",
 			"item": [
 				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "commentOnPost",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"thisisnotarealasdfasdfusername\",\r\n    \"content\": \"your post sucks tbh hella bad \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server-ip}}/api/posts/{{post_id}}/comment",
+									"host": [
+										"{{server-ip}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"{{post_id}}",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteCommentOnPost",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server-ip}}/api/posts/{{post_id}}/comment/{{comment_id}}",
+									"host": [
+										"{{server-ip}}"
+									],
+									"path": [
+										"api",
+										"posts",
+										"{{post_id}}",
+										"comment",
+										"{{comment_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "createPost",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"TestTitle\",\r\n    \"content\": \"LoreumIpsumLoreumIpsumassmothafuckelalskdfjr\",\r\n    \"username\": \"testingasdfcompare5\"\r\n}",
+							"raw": "{\r\n    \"title\": \"TestTitle\",\r\n    \"content\": \"testing comments\",\r\n    \"username\": \"rosarios2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -154,6 +302,104 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Upload",
+			"item": [
+				{
+					"name": "userUploadFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/rosarios2/Desktop/F7T6ILwXIAAsEUR.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server-ip}}/api/file/upload",
+							"host": [
+								"{{server-ip}}"
+							],
+							"path": [
+								"api",
+								"file",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
