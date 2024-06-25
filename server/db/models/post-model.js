@@ -37,6 +37,9 @@ const Post = new Schema({
         }
       }
     ],
+    filePath: {
+      type: String
+    },
     createdAt: {
       type: Date,
       default: Date.now
