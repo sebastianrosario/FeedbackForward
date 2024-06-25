@@ -13,8 +13,9 @@ router.get('/', function(req, res, next) {
 
   
 // User section
-router.post('/users', passport.authenticate('jwt', { session: false }), UserController.createUser);
+router.post('/users', UserController.createUser);
 router.get('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.getUserByUsername);
+router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser);
 router.post('/users/login', UserController.compPassword);
 
 // Post section
@@ -25,7 +26,7 @@ router.post('/posts/:pid/comment', passport.authenticate('jwt', { session: false
 router.delete('/posts/:pid/comment/:cid', passport.authenticate('jwt', { session: false }), PostController.deleteCommentOnPost);
 
 // Upload Section =
-router.post('/file/upload', upload.single('file'), FileController.handleUpload);
+router.post('/file/upload', upload.single('file'), passport.authenticate('jwt', {session: false}), FileController.handleUpload);
 
 
 module.exports = router;

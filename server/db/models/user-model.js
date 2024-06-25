@@ -21,6 +21,10 @@ const User = new Schema({
     type: String,
     required: true
   },
+  picPath: {
+    type:String,
+    required: false
+  },
   createdAt: {
     type: Date,
     default: Date.now

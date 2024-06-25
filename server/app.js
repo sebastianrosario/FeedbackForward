@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
 });
 
 // serving static files like profile pics
-app.use(express.static('/home/osari/uploads'))
+app.use('/files', express.static('/tmp/uploads'))
 module.exports = app;
 
 // User serlialization using passport
