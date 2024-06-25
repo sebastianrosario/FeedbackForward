@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-
+var upload = require('../db/config/upload.js')
 const UserController = require('../db/controllers/user-controller');
 const PostController = require('../db/controllers/post-controller');
+const FileController = require('../db/controllers/file-controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -22,6 +23,9 @@ router.get('/posts/:pid', passport.authenticate('jwt', { session: false }), Post
 router.get('/posts/fromuser/:uid', passport.authenticate('jwt', { session: false }), PostController.getPostByUsername);
 router.post('/posts/:pid/comment', passport.authenticate('jwt', { session: false }), PostController.commentOnPost);
 router.delete('/posts/:pid/comment/:cid', passport.authenticate('jwt', { session: false }), PostController.deleteCommentOnPost);
+
+// Upload Section =
+router.post('/file/upload', upload.single('file'), FileController.handleUpload);
 
 
 module.exports = router;
