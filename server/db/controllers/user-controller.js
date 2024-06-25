@@ -1,6 +1,7 @@
 const UserModel = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
 
 getUserByUsername = async (req, res) => {
     try {
@@ -42,11 +43,15 @@ compPassword = async (req, res) => {
         if(!result){
             throw new Error("compPassword error")
         }
+        const payload = { id: data._id, username: data.username };
+        // change jwt secret to something good, get it from environment variables instead of hardcoding
+        const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
         return res
         .status(200)
         .json({
             success: true,
-            message: "password match"
+            message: "password match",
+            token: token
         })
 
     } 
