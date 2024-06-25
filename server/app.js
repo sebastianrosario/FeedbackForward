@@ -52,6 +52,9 @@ app.use(function(err, req, res, next) {
  // res.render('error');
   res.sendStatus(500);
 });
+
+// serving static files like profile pics
+app.use(express.static('/home/osari/uploads'))
 module.exports = app;
 
 // User serlialization using passport
