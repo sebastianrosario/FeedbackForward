@@ -68,7 +68,6 @@ compPassword = async (req, res) => {
     }
 };
 
-
 createUser = async(req, res) => {
     const body = req.body;
 
@@ -115,8 +114,46 @@ createUser = async(req, res) => {
         });
 };
 
+updateUser = async(req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: 'You must provide a field to update.',
+            });
+    }
+
+    try {
+        const user = await UserModel.findOneAndUpdate({ username: req.params.uid }, body);
+        if (!user) {
+            throw new Error("[Feedback-Forward] - 404 - (updateUser) User not found!");
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        return res
+            .status(404)
+            .json(
+                {
+                    success: false,
+                    error: "User not found!"
+                }
+            )
+    }
+    return res
+    .status(200)
+    .json({
+        success: true,
+        message: "user successfully updated"
+    })
+}
+
 module.exports = {
     createUser,
     getUserByUsername,
-    compPassword
+    compPassword,
+    updateUser
 }

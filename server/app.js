@@ -52,6 +52,9 @@ app.use(function(err, req, res, next) {
  // res.render('error');
   res.sendStatus(500);
 });
+
+// serving static files like profile pics
+app.use('/files', express.static('/tmp/uploads'))
 module.exports = app;
 
 // User serlialization using passport

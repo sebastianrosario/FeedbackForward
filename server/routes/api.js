@@ -12,8 +12,9 @@ router.get('/', function(req, res, next) {
 });
 
 // User section
-router.post('/users', passport.authenticate('jwt', { session: false }), UserController.createUser);
+router.post('/users', UserController.createUser);
 router.get('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.getUserByUsername);
+router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser);
 router.post('/users/login', UserController.compPassword);
 router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser); // Update user endpoint
 
@@ -25,7 +26,7 @@ router.post('/posts/:pid/comment', passport.authenticate('jwt', { session: false
 router.delete('/posts/:pid/comment/:cid', passport.authenticate('jwt', { session: false }), PostController.deleteCommentOnPost);
 router.put('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.updatePost); // Update post endpoint
 
-// Upload Section
-router.post('/file/upload', upload.single('file'), FileController.handleUpload);
+// Upload Section =
+router.post('/file/upload', upload.single('file'), passport.authenticate('jwt', {session: false}), FileController.handleUpload);
 
 module.exports = router;
