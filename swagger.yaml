@@ -37,6 +37,8 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
   /api/users/login:
     post:
       tags:
@@ -64,6 +66,8 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
   /api/users/{user_name}:
     get:
       tags:
@@ -74,8 +78,112 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - Users
+      summary: updateUser
+      description: updateUser
+      operationId: updateuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asodijf:
+                  type: string
+                  example: etest
+                email:
+                  type: string
+                  example: changedemail@gmail.com
+                helloworld:
+                  type: string
+                  example: hello!
+                picPath:
+                  type: string
+                  example: helloworld
+            examples:
+              updateUser:
+                value:
+                  asodijf: etest
+                  email: changedemail@gmail.com
+                  helloworld: hello!
+                  picPath: helloworld
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
     parameters:
       - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/{post_id}/comment:
+    post:
+      tags:
+        - Posts
+        - Comments
+      summary: commentOnPost
+      description: commentOnPost
+      operationId: commentonpost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: 'your post sucks tbh hella bad '
+                username:
+                  type: string
+                  example: thisisnotarealasdfasdfusername
+            examples:
+              commentOnPost:
+                value:
+                  content: 'your post sucks tbh hella bad '
+                  username: thisisnotarealasdfasdfusername
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/{post_id}/comment/{comment_id}:
+    delete:
+      tags:
+        - Posts
+        - Comments
+      summary: deleteCommentOnPost
+      description: deleteCommentOnPost
+      operationId: deletecommentonpost
+      requestBody:
+        content:
+          application/json:
+            examples:
+              deleteCommentOnPost:
+                value: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: comment_id
         in: path
         required: true
         schema:
@@ -95,22 +203,24 @@ paths:
               properties:
                 content:
                   type: string
-                  example: LoreumIpsumLoreumIpsumassmothafuckelalskdfjr
+                  example: testing comments
                 title:
                   type: string
                   example: TestTitle
                 username:
                   type: string
-                  example: testingasdfcompare5
+                  example: rosarios2
             examples:
               createPost:
                 value:
-                  content: LoreumIpsumLoreumIpsumassmothafuckelalskdfjr
+                  content: testing comments
                   title: TestTitle
-                  username: testingasdfcompare5
+                  username: rosarios2
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
   /api/posts/{post_id}:
     get:
       tags:
@@ -121,6 +231,8 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
     parameters:
       - name: post_id
         in: path
@@ -137,12 +249,42 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearerAuth: []
     parameters:
       - name: user_name
         in: path
         required: true
         schema:
           type: string
+  /api/file/upload:
+    post:
+      tags:
+        - Upload
+      summary: userUploadFile
+      description: userUploadFile
+      operationId: useruploadfile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
 tags:
   - name: Users
   - name: Posts
+  - name: Comments
+  - name: Upload
