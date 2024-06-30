@@ -166,12 +166,6 @@ paths:
       summary: deleteCommentOnPost
       description: deleteCommentOnPost
       operationId: deletecommentonpost
-      requestBody:
-        content:
-          application/json:
-            examples:
-              deleteCommentOnPost:
-                value: ''
       responses:
         '200':
           description: ''
