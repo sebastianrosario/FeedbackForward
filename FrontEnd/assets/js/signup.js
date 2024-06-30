@@ -14,7 +14,6 @@ signupbutton.onclick = function() {
     // Hash the password using CryptoJS
     const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    // Create a payload
     const payload = JSON.stringify({
         username: username,
         email: email,

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const userCon = require('../controllers/user-controller.js');
+const UserModel = require('../models/user-model');
 
 const Post = new Schema({
     title: {
@@ -12,11 +14,32 @@ const Post = new Schema({
       required: true
     },
     username: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true
     },
     tags: [String],
+    comments: [
+      {
+        username:{
+          type: String,
+          required: true
+        },
+        content:{
+          type: String
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now
+        },
+        updatedAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
+    filePath: {
+      type: String
+    },
     createdAt: {
       type: Date,
       default: Date.now
@@ -32,11 +55,11 @@ const Post = new Schema({
   });
   
   // Add a pre-save hook to update the updatedAt field
-  postSchema.pre('save', function(next) {
+  Post.pre('save', async function(next) {
     this.updatedAt = Date.now();
     next();
   });
 
-
-module.exports = mongoose.model('Post', Post, 'posts');
+const ff_posts = mongoose.connection.useDb("ff_posts");
+module.exports = ff_posts.model('Post', Post, 'posts');
 
