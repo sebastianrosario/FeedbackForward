@@ -4,7 +4,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const body = document.getElementById('body').value;
 
-    fetch('http://192.168.28.129:3000/api/posts', {
+    fetch('http://192.168.28.129:3000/api/posts/new', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
