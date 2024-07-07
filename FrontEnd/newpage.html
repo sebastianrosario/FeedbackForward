@@ -13,6 +13,18 @@
                 <form id="blogForm">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" required>
+                    
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="technology">Technology</option>
+                        <option value="science">Food</option>
+                        <option value="education">Video Games</option>
+                        <option value="education">Sports</option>
+                        <option value="education">Coding</option>
+                        <option value="education">Fitness</option>
+                    </select>
+                    
                     <label for="body">Body</label>
                     <textarea id="body" name="body" rows="10" required></textarea>
                     <input type="submit" value="Submit">

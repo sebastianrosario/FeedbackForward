@@ -31,10 +31,15 @@ signinbutton.onclick = function() {
         if (data.success) {
             alert('Sign in successful');
             console.log("success");
-            localStorage.setItem('signupPayload', JSON.stringify(payload));
+            localStorage.setItem('signinPayload', JSON.stringify(payload));
+            if (data.key) {
+                sessionStorage.setItem('key',JSON.stringify(data.key));
+                console.log('Key generated and stored:', data.key);
+                alert('key = ' + data.key);
+            }
             window.location.href = "index.html";
         } else {
-            alert('Sign up failed: ' + data.message);
+            alert('Sign in failed: ' + data.message);
         }
     })
     .catch(error => {
