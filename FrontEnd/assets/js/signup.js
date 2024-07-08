@@ -31,14 +31,8 @@ signupbutton.onclick = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Sign up successful');
-            localStorage.setItem('signupPayload', JSON.stringify(payload));
-            if (data.key) {
-                sessionStorage.setItem('key',JSON.stringify(data.key));
-                console.log('Key generated and stored:', data.key);
-                alert('key = ' + data.key);
-            }
-            window.location.href = "index.html";
+            alert('Sign up successful, please signin');
+            window.location.href = "signin.html";
         } else {
             alert('Sign up failed: ' + data.message);
         }

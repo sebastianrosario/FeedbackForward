@@ -26,15 +26,15 @@ signinbutton.onclick = function() {
         },
         body: payload
     })
+    
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert('Sign in successful');
             console.log("success");
-            localStorage.setItem('signinPayload', JSON.stringify(payload));
-            if (data.key) {
-                sessionStorage.setItem('key',JSON.stringify(data.key));
-                console.log('Key generated and stored:', data.key);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                console.log('Key generated and stored:', data.token);
                 alert('key = ' + data.key);
             }
             window.location.href = "index.html";
