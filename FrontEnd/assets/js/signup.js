@@ -14,7 +14,6 @@ signupbutton.onclick = function() {
     // Hash the password using CryptoJS
     const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    // Create a payload
     const payload = JSON.stringify({
         username: username,
         email: email,
@@ -34,6 +33,11 @@ signupbutton.onclick = function() {
         if (data.success) {
             alert('Sign up successful');
             localStorage.setItem('signupPayload', JSON.stringify(payload));
+            if (data.key) {
+                sessionStorage.setItem('key',JSON.stringify(data.key));
+                console.log('Key generated and stored:', data.key);
+                alert('key = ' + data.key);
+            }
             window.location.href = "index.html";
         } else {
             alert('Sign up failed: ' + data.message);

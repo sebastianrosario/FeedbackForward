@@ -1,14 +1,15 @@
 const UserModel = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
 
-getUserById = async (req, res) => {
+getUserByUsername = async (req, res) => {
     try {
-        const data = await UserModel.find({ username: req.params.uid });
+        const data = await UserModel.findOne({ username: req.params.uid });
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getUserById) User not found!");
         }
-
+        data.password = "redacted"; 
         return res
             .status(200)
             .json({
@@ -22,7 +23,7 @@ getUserById = async (req, res) => {
             .status(404)
             .json(
                 {
-                    succes: false,
+                    success: false,
                     error: "User not found!"
                 }
             )
@@ -42,11 +43,15 @@ compPassword = async (req, res) => {
         if(!result){
             throw new Error("compPassword error")
         }
+        const payload = { id: data._id, username: data.username };
+        // change jwt secret to something good, get it from environment variables instead of hardcoding
+        const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
         return res
         .status(200)
         .json({
             success: true,
-            message: "password match"
+            message: "password match",
+            token: token
         })
 
     } 
@@ -56,13 +61,12 @@ compPassword = async (req, res) => {
             .status(404)
             .json(
                 {
-                    succes: false,
+                    success: false,
                     error: error
                 }
             )
     }
 };
-
 
 createUser = async(req, res) => {
     const body = req.body;
@@ -110,8 +114,46 @@ createUser = async(req, res) => {
         });
 };
 
+updateUser = async(req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: 'You must provide a field to update.',
+            });
+    }
+
+    try {
+        const user = await UserModel.findOneAndUpdate({ username: req.params.uid }, body);
+        if (!user) {
+            throw new Error("[Feedback-Forward] - 404 - (updateUser) User not found!");
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        return res
+            .status(404)
+            .json(
+                {
+                    success: false,
+                    error: "User not found!"
+                }
+            )
+    }
+    return res
+    .status(200)
+    .json({
+        success: true,
+        message: "user successfully updated"
+    })
+}
+
 module.exports = {
     createUser,
-    getUserById,
-    compPassword
+    getUserByUsername,
+    compPassword,
+    updateUser
 }

@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: FeedBackForward
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: '{{server-ip}}'
+paths:
+  /api/users:
+    post:
+      tags:
+        - Users
+      summary: createUser
+      description: createUser
+      operationId: createuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: testingemail123@gmail.com
+                password:
+                  type: string
+                  example: helloworld
+                username:
+                  type: string
+                  example: testtesttest
+            examples:
+              createUser:
+                value:
+                  email: testingemail123@gmail.com
+                  password: helloworld
+                  username: testtesttest
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/users/login:
+    post:
+      tags:
+        - Users
+      summary: userLogin
+      description: userLogin
+      operationId: userlogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: helloworld
+                username:
+                  type: string
+                  example: testtesttest
+            examples:
+              userLogin:
+                value:
+                  password: helloworld
+                  username: testtesttest
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/users/{user_name}:
+    get:
+      tags:
+        - Users
+      summary: getUserByUsername
+      description: getUserByUsername
+      operationId: getuserbyusername
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - Users
+      summary: updateUser
+      description: updateUser
+      operationId: updateuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asodijf:
+                  type: string
+                  example: etest
+                email:
+                  type: string
+                  example: changedemail@gmail.com
+                helloworld:
+                  type: string
+                  example: hello!
+                picPath:
+                  type: string
+                  example: helloworld
+            examples:
+              updateUser:
+                value:
+                  asodijf: etest
+                  email: changedemail@gmail.com
+                  helloworld: hello!
+                  picPath: helloworld
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/{post_id}/comment:
+    post:
+      tags:
+        - Posts
+        - Comments
+      summary: commentOnPost
+      description: commentOnPost
+      operationId: commentonpost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: 'your post sucks tbh hella bad '
+                username:
+                  type: string
+                  example: thisisnotarealasdfasdfusername
+            examples:
+              commentOnPost:
+                value:
+                  content: 'your post sucks tbh hella bad '
+                  username: thisisnotarealasdfasdfusername
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/{post_id}/comment/{comment_id}:
+    delete:
+      tags:
+        - Posts
+        - Comments
+      summary: deleteCommentOnPost
+      description: deleteCommentOnPost
+      operationId: deletecommentonpost
+      requestBody:
+        content:
+          application/json:
+            examples:
+              deleteCommentOnPost:
+                value: ''
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/new:
+    post:
+      tags:
+        - Posts
+      summary: createPost
+      description: createPost
+      operationId: createpost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: testing comments
+                title:
+                  type: string
+                  example: TestTitle
+                username:
+                  type: string
+                  example: rosarios2
+            examples:
+              createPost:
+                value:
+                  content: testing comments
+                  title: TestTitle
+                  username: rosarios2
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/posts/{post_id}:
+    get:
+      tags:
+        - Posts
+      summary: getPostById
+      description: getPostById
+      operationId: getpostbyid
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/fromuser/{user_name}:
+    get:
+      tags:
+        - Posts
+      summary: getPostByUser
+      description: getPostByUser
+      operationId: getpostbyuser
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/file/upload:
+    post:
+      tags:
+        - Upload
+      summary: userUploadFile
+      description: userUploadFile
+      operationId: useruploadfile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Users
+  - name: Posts
+  - name: Comments
+  - name: Upload

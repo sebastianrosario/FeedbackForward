@@ -21,6 +21,10 @@ const User = new Schema({
     type: String,
     required: true
   },
+  picPath: {
+    type:String,
+    required: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -45,7 +49,12 @@ User.pre('save', async function(next) {
   next();
 });
 
+User.methods.passwordCheck = function(plaintext) {
+  return bcrypt.compare(plaintext, this.password);
+}
+
 
 User.plugin(uniqueValidator);
+const ff_users = mongoose.connection.useDb("ff_users");
+module.exports = ff_users.model('User', User, 'users');
 
-module.exports = mongoose.model('User', User, 'users');
