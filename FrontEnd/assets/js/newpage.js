@@ -6,7 +6,6 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const category = document.getElementById('category').value;
     const key = sessionStorage.getItem('key');
 
-
     fetch('http://192.168.28.129:3000/api/posts/new', {
         method: 'POST',
         headers: {
