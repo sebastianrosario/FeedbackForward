@@ -4,14 +4,16 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const body = document.getElementById('body').value;
     const category = document.getElementById('category').value;
-    const key = sessionStorage.getItem('key');
+    const key = localStorage.getItem('key');
+
 
     fetch('http://192.168.28.129:3000/api/posts/new', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token 
         },
-        body: JSON.stringify({ title: title, body: body, key: key, category: category})
+        body: JSON.stringify({ title: title, body: body, category: category})
     })
     
     .then(response => response.json())
