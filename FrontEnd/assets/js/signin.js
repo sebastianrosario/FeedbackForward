@@ -36,7 +36,7 @@ signinbutton.onclick = function() {
                 console.log('Key generated and stored:', data.token);
                 alert('key = ' + data.token);
             }
-            window.location.href = "key.html";
+            window.location.href = "index.html";
         } else {
             alert('Sign in failed: ' + data.message);
         }
