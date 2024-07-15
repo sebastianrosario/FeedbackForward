@@ -31,6 +31,14 @@ const toggleMenu = () =>{
 
 menuToggleIcon.addEventListener('click', toggleMenu);
 
+document.addEventListener('DOMContentLoaded', function() {
+    const newPostButton = document.getElementById('New Post');
+    
+    newPostButton.onclick = function() {
+        window.location.href = 'newpost.html';
+    };
+});
+
 // Open/Close search form popup
 formOpenBtn.addEventListener('click', () => searchContainer.classList.add('activated'));
 formCloseBtn.addEventListener('click', () => searchContainer.classList.remove('activated'));
