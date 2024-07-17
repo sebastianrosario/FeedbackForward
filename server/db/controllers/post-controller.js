@@ -244,8 +244,21 @@ commentOnPost = async (req, res) => {
     
         const postId = req.params.pid; 
 
-        const foundPost = await PostModel.findOneAndUpdate({ _id: postId }, {$push:{comments: comment}});
-        console.log(foundPost);
+        // https://jira.mongodb.org/browse/SERVER-19974
+        // https://stackoverflow.com/questions/7936019/how-do-i-add-a-value-to-the-top-of-an-array-in-mongodb
+        const foundPost = await PostModel.findOneAndUpdate(
+            { _id: postId }, 
+            {
+            $push: 
+                { 
+                comments: 
+                    {
+                        $each: [comment], $position: 0
+                    } 
+                }
+            }
+        );
+        console.log(foundPost.comments);
         if (!foundPost) {
             throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
         }
@@ -264,7 +277,8 @@ commentOnPost = async (req, res) => {
             .status(400)
             .json({
                 success: false,
-                error: error
+                message: "Something went wrong!",
+                error: error.message
             });
     }
 };
