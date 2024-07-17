@@ -2,8 +2,10 @@ const UserModel = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
 
 getUserByUsername = async (req, res) => {
+    console.log(jwt_decode.jwtDecode(req.headers.authorization).id);
     try {
         const data = await UserModel.findOne({ username: req.params.uid });
         if (!data) {
@@ -123,6 +125,17 @@ updateUser = async(req, res) => {
             .json({
                 success: false,
                 error: 'You must provide a field to update.',
+            });
+    }
+
+    const jwt_username = jwtd.jwtDecode(req.headers.authorization).username;
+
+    if(req.params.uid != jwt_username) {
+        return res
+            .status(400)
+            .json({
+                success: false,
+                error: 'You are trying to update a user not of your own.'
             });
     }
 

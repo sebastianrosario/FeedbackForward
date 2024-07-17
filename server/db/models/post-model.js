@@ -18,6 +18,10 @@ const Post = new Schema({
       required: true
     },
     tags: [String],
+    upvotes: {
+      type: Number,
+      default: 0
+    },
     comments: [
       {
         username:{
@@ -50,7 +54,7 @@ const Post = new Schema({
     },
     published: {
       type: Boolean,
-      default: false
+      default: true
     }
   });
   
