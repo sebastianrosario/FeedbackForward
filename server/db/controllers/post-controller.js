@@ -325,11 +325,11 @@ deletePost = async (req, res) => {
 
     try {
         const foundPost = await PostModel.findOne({ _id: postId });
-        if(jwt_username != foundPost.username){
-            throw new Error("[Feedback-Forward] - 404 - (deletePost) Trying to delete another users post!")
-        }
         if (!foundPost) {
             throw new Error("[Feedback-Forward] - 404 - (deletePost) Post not found!");
+        }
+        if(jwt_username != foundPost.username){
+            throw new Error("[Feedback-Forward] - 404 - (deletePost) Trying to delete another users post!")
         }
 
         await PostModel.deleteOne(foundPost);

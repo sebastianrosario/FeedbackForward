@@ -155,9 +155,43 @@ updateUser = async(req, res) => {
         })
 }
 
+deleteUser = async(req, res) => {
+    const userId = req.params.uid;
+    const jwt_username = jwt_decode.jwtDecode(req.headers.authorization).username;
+
+    try {
+        const foundUser = await UserModel.findOne({ username: userId });
+        if (!foundUser) {
+            throw new Error("[Feedback-Forward] - 404 - (deleteUser) User not found!");
+        }
+        if(jwt_username != foundUser.username){
+            throw new Error("[Feedback-Forward] - 404 - (deleteUser) Trying to delete another user!")
+        }
+
+        await UserModel.deleteOne(foundUser);
+    } catch (error) {
+        console.error(error);
+        return res
+            .status(400)
+            .json({
+                success: false,
+                message: "Something went wrong!",
+                error: error.message
+            });
+    }
+
+    return res
+        .status(201)
+        .json({
+            success: true,
+            message: `Deleted user ${userId}`
+        });
+}
+
 module.exports = {
     createUser,
     getUserByUsername,
     compPassword,
-    updateUser
+    updateUser,
+    deleteUser
 }
