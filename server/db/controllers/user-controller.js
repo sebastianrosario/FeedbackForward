@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 
 getUserByUsername = async (req, res) => {
-    console.log(jwt_decode.jwtDecode(req.headers.authorization).id);
     try {
         const data = await UserModel.findOne({ username: req.params.uid });
         if (!data) {
@@ -43,11 +42,11 @@ compPassword = async (req, res) => {
 
         const result = await bcrypt.compareSync(body.password, data.password);
         if(!result){
-            throw new Error("compPassword error")
+            throw new Error("Passwords do not match")
         }
         const payload = { id: data._id, username: data.username };
         // change jwt secret to something good, get it from environment variables instead of hardcoding
-        const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
+        const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '5h' });
         return res
         .status(200)
         .json({
@@ -64,7 +63,8 @@ compPassword = async (req, res) => {
             .json(
                 {
                     success: false,
-                    error: error
+                    message: "Error logging in",
+                    error: error.message
                 }
             )
     }
@@ -101,7 +101,7 @@ createUser = async(req, res) => {
         .status(400)
         .json({
             success: false,
-            error: error
+            error: error.message
         });
     }
 
@@ -117,30 +117,20 @@ createUser = async(req, res) => {
 };
 
 updateUser = async(req, res) => {
-    const body = req.body;
-
-    if (!body) {
-        return res
-            .status(400)
-            .json({
-                success: false,
-                error: 'You must provide a field to update.',
-            });
-    }
-
-    const jwt_username = jwtd.jwtDecode(req.headers.authorization).username;
-
-    if(req.params.uid != jwt_username) {
-        return res
-            .status(400)
-            .json({
-                success: false,
-                error: 'You are trying to update a user not of your own.'
-            });
-    }
-
     try {
-        const user = await UserModel.findOneAndUpdate({ username: req.params.uid }, body);
+        const body = req.body;
+
+        if (!body) {
+            throw new Error("You must provide a field to update.");
+        }
+
+        const jwt_username = jwt_decode.jwtDecode(req.headers.authorization).username;
+
+        if(req.params.uid != jwt_username) {
+            throw new Error('You are trying to update a user not of your own.')
+        }
+
+        const user = await UserModel.findOneAndUpdate({ username: req.params.uid }, body, {runValidators: true});
         if (!user) {
             throw new Error("[Feedback-Forward] - 404 - (updateUser) User not found!");
         }
@@ -152,16 +142,17 @@ updateUser = async(req, res) => {
             .json(
                 {
                     success: false,
-                    error: "User not found!"
+                    message: "Something went wrong!",
+                    error: error.message
                 }
             )
     }
     return res
-    .status(200)
-    .json({
-        success: true,
-        message: "user successfully updated"
-    })
+        .status(200)
+        .json({
+            success: true,
+            message: "user successfully updated"
+        })
 }
 
 module.exports = {

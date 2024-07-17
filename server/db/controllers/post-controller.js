@@ -13,7 +13,7 @@ function getUsernameFromJWT(jwt) {
 // Get post by ID
 getPostById = async (req, res) => {
     try {
-        const data = await PostModel.findOne({ _id: req.params.pid, published: true });
+        const data = await PostModel.findOne({ _id: req.params.pid });
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
         }
@@ -24,6 +24,7 @@ getPostById = async (req, res) => {
                 success: true,
                 message: data
             });
+
     } 
     catch (error) {
         console.log(error);
@@ -31,15 +32,17 @@ getPostById = async (req, res) => {
             .status(404)
             .json({
                 success: false,
-                error: "Post not found!"
+                message: "Something went wrong!",
+                error: error.message
             });
     }
+
 };
 
 // Get post by username
 getPostByUsername = async (req, res) => {
     try {
-        const data = await PostModel.find({ username: req.params.uid, published: true });
+        const data = await PostModel.find({ username: req.params.uid, published: true }).sort({createdAt: -1});
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getPostByUsername) Post not found!");
         }
@@ -57,9 +60,12 @@ getPostByUsername = async (req, res) => {
             .status(404)
             .json({
                 success: false,
-                error: "Post not found!"
+                message: "Something went wrong!",
+                error: error.message
             });
     }
+
+
 };
 
 getPostByTime = async (req, res) => {
@@ -74,8 +80,7 @@ getPostByTime = async (req, res) => {
             .status(200)
             .json({
                 success: true,
-                message: 'Posts successfully found',
-                posts: data
+                message: data
             });
     } 
     catch (error) {
@@ -84,9 +89,12 @@ getPostByTime = async (req, res) => {
             .status(404)
             .json({
                 success: false,
-                error: "Post not found!"
+                message: "Something went wrong!",
+                error: error.message
             });
     }
+
+
 }
 
 getPostByUpvotes = async (req, res) => {
@@ -94,8 +102,7 @@ getPostByUpvotes = async (req, res) => {
         const data = await PostModel.find({published: true}).sort({upvotes: -1});
         if (!data) {
             throw new Error("[Feedback-Forward] - 404 - (getPostByUsername) Post not found!");
-        }
-
+        }    
         return res
             .status(200)
             .json({
@@ -109,24 +116,54 @@ getPostByUpvotes = async (req, res) => {
             .status(404)
             .json({
                 success: false,
-                error: "Post not found!"
+                message: "Something went wrong!",
+                error: error.message
             });
     }
+
+
 };
 
 getPostByTags = async (req, res) => {
     try {
-        const {tags} = req.query;
-        const data = await PostModel.find({published: true}).sort({upvotes: -1});
+        if(!req.query.q){
+            throw new Error("[Feedback-Forward] - 404 - (getPostByTags) Tags not passed!")
+        }
+        const tags = req.query.q.split(",");
+        const sort = req.query.sort;
+
+        const data = await PostModel.find({published: true, tags: {$all: tags}});
+        let posts = data;
         if (!data) {
-            throw new Error("[Feedback-Forward] - 404 - (getPostByUsername) Post not found!");
+            throw new Error("[Feedback-Forward] - 404 - (getPostByTags) Post not found!");
         }
 
+        if (sort === "top") {
+            posts = data.sort(
+                (a, b)=>{
+                    return b.upvotes - a.upvotes;
+                }
+            );
+        }
+
+        if (sort === "new"){
+            posts = data.sort( 
+                (a,b) => {
+                    if(a.createdAt > b.createdAt){
+                        return 1;
+                    }
+                    if (b.createdAt > a.createdAt){
+                        return -1;
+                    }
+                    return 0;
+                }
+            );
+        }
         return res
             .status(200)
             .json({
                 success: true,
-                message: data
+                message: posts
             });
     } 
     catch (error) {
@@ -135,97 +172,92 @@ getPostByTags = async (req, res) => {
             .status(404)
             .json({
                 success: false,
-                error: "Post not found!"
+                message: "Something went wrong!",
+                error: error.message
             });
     }
+
 };
 
 // Create post
 createPost = async (req, res) => {
-    const body = req.body;
-
-    if (!body) {
-        return res
-            .status(400)
-            .json({
-                success: false,
-                error: 'You must provide a Post.',
-            });
-    }
-
-    const jwt_username = getUsernameFromJWT(req.headers.authorization);
-
-    body.username = jwt_username;
-
-    let post = new PostModel(body);
-
-    if (!post) {
-        console.error(`[Feedback-Forward] - 400 - (createPost) 'Post' is malformed.`);
-        return res
-            .status(400)
-            .json({
-                success: false,
-                message: "'Post' is malformed"
-            });
-    }
-
     try {
+        const body = req.body;
+
+        if (!body) {
+            throw new Error("[Feedback-Forward] - 400 - (createPost) 'Post' is malformed.");
+        }
+    
+        const jwt_username = getUsernameFromJWT(req.headers.authorization);
+    
+        body.username = jwt_username;
+
+        let post = new PostModel(body);
+
+        if (!post) {
+            throw new Error("[Feedback-Forward] - 400 - (createPost) 'Post' is malformed.");
+        }
+
         await post.save();
+
+        console.log(`[Feedback-Forward] - 201 in 'createPost': Post created!`);
+        return res
+            .status(201)
+            .json({
+                success: true,
+                postId: post._id,
+                message: 'Post created!',
+                post: post
+            });
     } catch (error) {
         console.log(error); 
         return res
             .status(400)
             .json({
                 success: false,
-                error: error
+                message: "Something went wrong!",
+                error: error.message
             });
     }
-
-    console.log(`[Feedback-Forward] - 201 in 'createPost': Post created!`);
-    return res
-        .status(201)
-        .json({
-            success: true,
-            id: post._id,
-            message: 'Post created!',
-        });
 };
 
 // Comment on post
 commentOnPost = async (req, res) => {
-    const body = req.body;
-
-    if (!body) {
-        console.error(`[Feedback-Forward] - 400 - (commentOnPost) 'Comment' is not provided.`);
-        return res
-            .status(400)
-            .json({
-                success: false,
-                error: `You must provide a Comment.`,
-            });
-    }
-
-    const jwt_username = getUsernameFromJWT(req.headers.authorization);
-    if(body.username != null && body.username != jwt_username) {
-        return res
-            .status(404)
-            .json({
-                succes: false,
-                error: `trying to comment as another user, true_user = ${jwt_username}, body_user = ${body.username}`
-            })
-    }
-
-    body.username = jwt_username;
-
-    const postId = req.params.pid; 
     try {
-        const foundPost = await PostModel.findOne({ _id: postId });
+        const comment = req.body;
+
+        if (!comment) {
+            throw new Error(`[Feedback-Forward] - 400 - (commentOnPost) 'Comment' is not provided.`);
+        }
+    
+        const jwt_username = getUsernameFromJWT(req.headers.authorization);
+        if(comment.username != null && comment.username != jwt_username) {
+            return res
+                .status(404)
+                .json({
+                    succes: false,
+                    error: `trying to comment as another user, true_user = ${jwt_username}, body_user = ${comment.username}`
+                })
+        }
+    
+        comment.username = jwt_username;
+    
+        const postId = req.params.pid; 
+
+        const foundPost = await PostModel.findOneAndUpdate({ _id: postId }, {$push:{comments: comment}});
+        console.log(foundPost);
         if (!foundPost) {
             throw new Error("[Feedback-Forward] - 404 - (getPostById) Post not found!");
         }
 
-        foundPost.comments.push(body); 
-        await foundPost.save();
+        return res
+        .status(201)
+        .json({
+            success: true,
+            message: `Comment created on post ${postId} by ${comment.username}`,
+            postId: postId
+        });
+
     } catch (error) {
         console.error(error);
         return res
@@ -235,35 +267,19 @@ commentOnPost = async (req, res) => {
                 error: error
             });
     }
-
-    return res
-        .status(201)
-        .json({
-            success: true,
-            message: `Comment created on post ${postId} by ${body.username}`,
-            postId: postId,
-            commentId: commentId
-        });
 };
 
 // Delete comment on post
 deleteCommentOnPost = async (req, res) => {
     const body = req.body;
-
     if (!body) {
-        console.error(`[Feedback-Forward] - 400 - (deleteCommentOnPost) 'Comment' is not provided.`);
-        return res
-            .status(400)
-            .json({
-                success: false,
-                error: `You must provide a Comment ID.`,
-            });
+        throw new Error(`[Feedback-Forward] - 400 - (deleteCommentOnPost) 'Comment' is not provided.`);
     }
+
     const jwt_username = getUsernameFromJWT(req.headers.authorization)
     const postId = req.params.pid; 
     const commentId = req.params.cid;
-    console.log(commentId);
-
+    
     try {
         const foundPost = await PostModel.findOne({ _id: postId });
         if (!foundPost) {
@@ -288,7 +304,8 @@ deleteCommentOnPost = async (req, res) => {
             .status(400)
             .json({
                 success: false,
-                error: error
+                message: "Something went wrong!",
+                error: error.message
             });
     }
 
@@ -296,7 +313,9 @@ deleteCommentOnPost = async (req, res) => {
         .status(201)
         .json({
             success: true,
-            message: `Comment ${commentId} deleted on post ${postId}`
+            message: `Comment ${commentId} deleted on post ${postId}`,
+            postId: postId,
+            commentId: commentId
         });
 };
 
@@ -320,6 +339,7 @@ deletePost = async (req, res) => {
             .status(400)
             .json({
                 success: false,
+                message: "Something went wrong!",
                 error: error.message
             });
     }
@@ -340,11 +360,11 @@ updatePost = async (req, res) => {
 
     try {
         const foundPost = await PostModel.findById(postId);
-        if(jwt_username != foundPost.username) {
-            throw new Error("[Feedback-Forward] - 404 - (updatePost) Attempting to update post that is not yours!")
-        }
         if (!foundPost) {
             throw new Error("[Feedback-Forward] - 404 - (updatePost) Post not found!");
+        }
+        if(jwt_username != foundPost.username) {
+            throw new Error("[Feedback-Forward] - 404 - (updatePost) Attempting to update post that is not yours!")
         }
 
         const updatedPost = await PostModel.findByIdAndUpdate(postId, updateData, {new:true});
@@ -354,6 +374,7 @@ updatePost = async (req, res) => {
         .json({
             success: true,
             message: `Successfully updated post ${postId}`,
+            postId: postId,
             post: updatedPost
         });
 
@@ -384,12 +405,13 @@ upvotePost = async (req, res) => {
         }
 
         return res
-            .status(200)
-            .json({
-                success: true,
-                message: `New post upvotes: ${updatedPost.upvotes}`,
-                post: updatedPost
-            });
+        .status(200)
+        .json({
+            success: true,
+            message: `New post upvotes: ${updatedPost.upvotes}`,
+            postId: postId,
+            post: updatedPost
+        });
     } catch (error) {
         console.error(error);
         return res
@@ -409,6 +431,7 @@ module.exports = {
     getPostByUsername,
     getPostByTime,
     getPostByUpvotes,
+    getPostByTags,
     commentOnPost,
     deletePost,
     deleteCommentOnPost,
