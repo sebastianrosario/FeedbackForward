@@ -20,11 +20,18 @@ router.put('/users/:uid', passport.authenticate('jwt', { session: false }), User
 
 // Post section
 router.post('/posts/new', passport.authenticate('jwt', { session: false }), PostController.createPost);
+router.put('/posts/:pid/upvote', passport.authenticate('jwt', { session: false }), PostController.upvotePost);
+router.put('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.updatePost); // Update post endpoint
 router.get('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.getPostById);
-router.get('/posts/fromuser/:uid', passport.authenticate('jwt', { session: false }), PostController.getPostByUsername);
+router.get('/posts/filter/fromuser/:uid', passport.authenticate('jwt', { session: false }), PostController.getPostByUsername);
+router.get('/posts/filter/byupvotes', passport.authenticate('jwt', { session: false }), PostController.getPostByUpvotes);
+router.get('/posts/filter/twohoursago', passport.authenticate('jwt', { session: false }), PostController.getPostByTime);
+router.get('/posts/filter/tags', passport.authenticate('jwt', { session: false }), PostController.getPostByTags)
+router.delete('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.deletePost);
+
+// Comments
 router.post('/posts/:pid/comment', passport.authenticate('jwt', { session: false }), PostController.commentOnPost);
 router.delete('/posts/:pid/comment/:cid', passport.authenticate('jwt', { session: false }), PostController.deleteCommentOnPost);
-router.put('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.updatePost); // Update post endpoint
 
 // Upload Section =
 router.post('/file/upload', upload.single('file'), passport.authenticate('jwt', {session: false}), FileController.handleUpload);
