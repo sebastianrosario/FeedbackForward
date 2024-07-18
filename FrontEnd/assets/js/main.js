@@ -5,16 +5,14 @@ const selectElement = (selector) => {
     throw new Error(`Something went wrong! Make sure that ${selector} exists/is typed correctly.`);  
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE");
-
-    const requestOptions = {
+window.onload = function () {
+    fetch("http://192.168.28.129:3000/api/posts/669904ce46930466bd08029d",{
         method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
-    fetch('https://192.168.28.129:3000/api/posts/66984cb346930466bd080277') // Replace with your backend URL
+        headers:{
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+        }
+    })
     .then(response => response.json())
     .then(data => { 
         if (data.success) {
@@ -36,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => {
         console.error('Error fetching article data:', error);
     });
-});
+};
 
 //Nav styles on scroll
 const scrollHeader = () =>{
