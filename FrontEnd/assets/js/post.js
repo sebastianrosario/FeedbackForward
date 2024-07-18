@@ -14,8 +14,6 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
 
-
-
     fetch(`${serverIp}/api/posts/${urlParams.get("id")}`, { // Change to actual variable
         method: 'GET',
         headers: {
@@ -28,6 +26,8 @@ window.onload = function() {
         console.log(data.postId);
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
+        document.getElementById("tags").innerHTML = data.message.tags;
+        //const title = data.message.title
     })
     .catch(error => {
         console.error('Error:', error);

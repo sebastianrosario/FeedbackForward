@@ -1,6 +1,7 @@
 // Grab elements
 
-localStorage.setItem("serverIp", "http://localhost:3000");
+localStorage.setItem("serverIp", "http://192.168.28.129:3000");
+const serverIp = localStorage.getItem("serverIp");
 
 const selectElement = (selector) => {
     const element = document.querySelector(selector);
@@ -40,6 +41,73 @@ document.addEventListener('DOMContentLoaded', function() {
     newPostButton.onclick = function() {
         window.location.href = 'newpost.html';
     };
+
+        /***Used for testing the payload contents***/
+    //fetch('http://192.168.28.129:3000/api/posts/${currentPost}', { // Change to actual variable
+    console.log("loading")
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+
+    fetch(`${serverIp}/api/posts/filter/twohoursago`, { // Change to actual variable
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const container = document.getElementById('container');
+        if (!container) {
+            console.error('Posts container not found');
+            return;
+        }
+    
+        // Clear existing content
+        container.innerHTML = '';
+    
+        data.message.forEach(post => {
+            // Create elements
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+    
+            const titleElement = document.createElement('h2');
+            titleElement.textContent = post.title;
+    
+            const contentElement = document.createElement('p');
+            contentElement.textContent = post.content;
+    
+            const tagsElement = document.createElement('div');
+            tagsElement.classList.add('tags');
+            post.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.textContent = tag;
+                tagsElement.appendChild(tagElement);
+            });
+    
+            const authorElement = document.createElement('p');
+            authorElement.textContent = `Posted by ${post.username}`;
+    
+            // Append elements to post container
+            postElement.appendChild(titleElement);
+            postElement.appendChild(contentElement);
+            postElement.appendChild(tagsElement);
+            postElement.appendChild(authorElement);
+    
+            container.appendChild(postElement);
+        });
+        // console.log(data.postId);
+        // document.getElementById("title").innerHTML = data.message.title;
+        // document.getElementById("content").innerHTML = data.message.content;
+        // document.getElementById("tags").innerHTML = data.message.tags;
+        //const title = data.message.title
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Post Fetch Failed');
+    });
+
 });
 
 // Open/Close search form popup
@@ -52,7 +120,7 @@ window.addEventListener('keyup', (event) => {
 
 // Switch theme/add to local storage
 const body = document.body;
-const themeToggleBtn = selectElement('#theme-toggle-btn');
+// const themeToggleBtn = selectElement('#theme-toggle-btn');
 const currentTheme = localStorage.getItem('currentTheme');
 
 
@@ -84,6 +152,6 @@ const swiper = new Swiper(".swiper", {
     }   
 });
 
-post.onclick = function() {
-    window.location.href = "newpage.html";
-}
+// post.onclick = function() {
+//     window.location.href = "newpage.html";
+// }
