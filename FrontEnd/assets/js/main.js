@@ -5,6 +5,31 @@ const selectElement = (selector) => {
     throw new Error(`Something went wrong! Make sure that ${selector} exists/is typed correctly.`);  
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('https://192.168.28.129:3000/api/posts/66984cb346930466bd080277') // Replace with your backend URL
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const message = data.message;
+            
+            // Extract data from the JSON response
+            const title = message.title;
+            const category = message.tags.join(', '); // Combine tags into a single string
+            const date = new Date(message.createdAt).toLocaleDateString(); // Format date
+
+            // Update HTML elements with the fetched data
+            document.querySelector('.article-category').textContent = category;
+            document.querySelector('.article-date').textContent = date;
+            document.querySelector('.article-title').textContent = title;
+        } else {
+            console.error('Failed to fetch article data.');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching article data:', error);
+    });
+});
+
 //Nav styles on scroll
 const scrollHeader = () =>{
     const navbarElement = selectElement('#header');
@@ -32,7 +57,7 @@ const toggleMenu = () =>{
 menuToggleIcon.addEventListener('click', toggleMenu);
 
 document.addEventListener('DOMContentLoaded', function() {
-    const newPostButton = document.getElementById('New Post');
+    const newPostButton = document.getElementById('new Post');
     
     newPostButton.onclick = function() {
         window.location.href = 'newpost.html';
