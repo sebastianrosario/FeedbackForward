@@ -8,7 +8,7 @@ const selectElement = (selector) => {
 document.addEventListener('DOMContentLoaded', () => {
     fetch('https://192.168.28.129:3000/api/posts/66984cb346930466bd080277') // Replace with your backend URL
     .then(response => response.json())
-    .then(data => {
+    .then(data => { 
         if (data.success) {
             const message = data.message;
             
