@@ -4,7 +4,7 @@ window.onload = function () {
         headers:{
         'Content-Type': 'application/json',
         //'Authorization': "Bearer " + sessionStorage.getItem('key')
-        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTkxMzU5NDY5MzA0NjZiZDA4MDJkMSIsInVzZXJuYW1lIjoiRmVlZGJhY2tGb3dhcmRBZG1pbiIsImlhdCI6MTcyMTMzNzAxNSwiZXhwIjoxNzIxMzU1MDE1fQ.WvCNk9XCiHK_xQPvmb_mwu0Qeqb5tC_bQKNuyhY3V0I"
         }
     })
     .then(response => response.json())
@@ -26,15 +26,13 @@ window.onload = function () {
         } else {
             console.error('Failed to fetch article data.');
         }
-    })}
-    
-window.onload = function () {
+    })
     fetch("http://192.168.28.129:3000/api/posts/filter/byupvotes/",{
         method: "GET",
         headers:{
         'Content-Type': 'application/json',
         //'Authorization': "Bearer " + sessionStorage.getItem('key')
-        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTkxMzU5NDY5MzA0NjZiZDA4MDJkMSIsInVzZXJuYW1lIjoiRmVlZGJhY2tGb3dhcmRBZG1pbiIsImlhdCI6MTcyMTMzNzAxNSwiZXhwIjoxNzIxMzU1MDE1fQ.WvCNk9XCiHK_xQPvmb_mwu0Qeqb5tC_bQKNuyhY3V0I"
         }
         .then(response => response.json())
         .then(data => {
