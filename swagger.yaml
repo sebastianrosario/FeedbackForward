@@ -21,24 +21,24 @@ paths:
               properties:
                 email:
                   type: string
-                  example: testingemail123@gmail.com
+                  example: abrandnewemail@gmail.com
                 password:
                   type: string
                   example: helloworld
                 username:
                   type: string
-                  example: testtesttest
+                  example: abrandnewusername
             examples:
               createUser:
                 value:
-                  email: testingemail123@gmail.com
+                  email: abrandnewemail@gmail.com
                   password: helloworld
-                  username: testtesttest
+                  username: abrandnewusername
       responses:
         '200':
           description: ''
       security:
-        - bearerAuth: []
+        - {}
   /api/users/login:
     post:
       tags:
@@ -67,7 +67,7 @@ paths:
         '200':
           description: ''
       security:
-        - bearerAuth: []
+        - {}
   /api/users/{user_name}:
     get:
       tags:
@@ -75,6 +75,14 @@ paths:
       summary: getUserByUsername
       description: getUserByUsername
       operationId: getuserbyusername
+      parameters:
+        - name: asd
+          in: header
+          schema:
+            type: string
+            example: >-
+              Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmEzYjAyM2E5YWZlYWFhOWM3MTIxMSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzE5Nzk1NjA1LCJleHAiOjE3MTk3OTkyMDV9.EHZuTmPFDt9pIVNSk4808CiByi1GnaVndYj1hr-EAEg
       responses:
         '200':
           description: ''
@@ -92,25 +100,17 @@ paths:
             schema:
               type: object
               properties:
-                asodijf:
-                  type: string
-                  example: etest
-                email:
-                  type: string
-                  example: changedemail@gmail.com
-                helloworld:
-                  type: string
-                  example: hello!
                 picPath:
                   type: string
-                  example: helloworld
+                  example: http://localhost:3000/files/file-1719789675679-742439663.jpg
+                username:
+                  type: string
+                  example: rosarios2
             examples:
               updateUser:
                 value:
-                  asodijf: etest
-                  email: changedemail@gmail.com
-                  helloworld: hello!
-                  picPath: helloworld
+                  picPath: http://localhost:3000/files/file-1719789675679-742439663.jpg
+                  username: rosarios2
       responses:
         '200':
           description: ''
@@ -122,68 +122,20 @@ paths:
         required: true
         schema:
           type: string
-  /api/posts/{post_id}/comment:
-    post:
-      tags:
-        - Posts
-        - Comments
-      summary: commentOnPost
-      description: commentOnPost
-      operationId: commentonpost
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                content:
-                  type: string
-                  example: 'your post sucks tbh hella bad '
-                username:
-                  type: string
-                  example: thisisnotarealasdfasdfusername
-            examples:
-              commentOnPost:
-                value:
-                  content: 'your post sucks tbh hella bad '
-                  username: thisisnotarealasdfasdfusername
-      responses:
-        '200':
-          description: ''
-      security:
-        - bearerAuth: []
-    parameters:
-      - name: post_id
-        in: path
-        required: true
-        schema:
-          type: string
-  /api/posts/{post_id}/comment/{comment_id}:
+  /api/users/{delete_user_name}:
     delete:
       tags:
-        - Posts
-        - Comments
-      summary: deleteCommentOnPost
-      description: deleteCommentOnPost
-      operationId: deletecommentonpost
-      requestBody:
-        content:
-          application/json:
-            examples:
-              deleteCommentOnPost:
-                value: ''
+        - Users
+      summary: deleteUser
+      description: deleteUser
+      operationId: deleteuser
       responses:
         '200':
           description: ''
       security:
         - bearerAuth: []
     parameters:
-      - name: post_id
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: comment_id
+      - name: delete_user_name
         in: path
         required: true
         schema:
@@ -203,31 +155,40 @@ paths:
               properties:
                 content:
                   type: string
-                  example: testing comments
+                  example: I suck at music! Postman Testing!
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    example: gaming
+                  example:
+                    - gaming
+                    - music
+                    - beginner
                 title:
                   type: string
-                  example: TestTitle
-                username:
-                  type: string
-                  example: rosarios2
+                  example: Gaming and Music LOL
             examples:
               createPost:
                 value:
-                  content: testing comments
-                  title: TestTitle
-                  username: rosarios2
+                  content: I suck at music! Postman Testing!
+                  tags:
+                    - gaming
+                    - music
+                    - beginner
+                  title: Gaming and Music LOL
       responses:
         '200':
           description: ''
       security:
         - bearerAuth: []
-  /api/posts/{post_id}:
-    get:
+  /api/posts/{post_id}/upvote:
+    put:
       tags:
         - Posts
-      summary: getPostById
-      description: getPostById
-      operationId: getpostbyid
+      summary: upvotePost
+      description: upvotePost
+      operationId: upvotepost
       responses:
         '200':
           description: ''
@@ -239,10 +200,68 @@ paths:
         required: true
         schema:
           type: string
-  /api/posts/fromuser/{user_name}:
+  /api/posts/{post_id}:
     get:
       tags:
+        - FilteringPosts
+      summary: getPostById
+      description: getPostById
+      operationId: getpostbyid
+      parameters:
+        - name: ''
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    put:
+      tags:
         - Posts
+      summary: updatePost
+      description: updatePost
+      operationId: updatepost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Umm lemme change this title real quick
+            examples:
+              updatePost:
+                value:
+                  title: Umm lemme change this title real quick
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - Posts
+      summary: deletePost
+      description: deletePost
+      operationId: deletepost
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/filter/fromuser/{user_name}:
+    get:
+      tags:
+        - FilteringPosts
       summary: getPostByUser
       description: getPostByUser
       operationId: getpostbyuser
@@ -253,6 +272,110 @@ paths:
         - bearerAuth: []
     parameters:
       - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/filter/byupvotes/:
+    get:
+      tags:
+        - FilteringPosts
+      summary: getPostByUpvotes
+      description: getPostByUpvotes
+      operationId: getpostbyupvotes
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/posts/filter/twohoursago:
+    get:
+      tags:
+        - FilteringPosts
+      summary: getPostsLast2hrs
+      description: getPostsLast2hrs
+      operationId: getpostslast2hrs
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/posts/filter/tags:
+    get:
+      tags:
+        - FilteringPosts
+      summary: getPostByTags
+      description: getPostByTags
+      operationId: getpostbytags
+      parameters:
+        - name: time
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: top
+          description: sort by top or new
+        - name: q
+          in: query
+          schema:
+            type: string
+            example: music,gaming
+          description: comma separated list of tags
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/posts/{post_id}/comment:
+    post:
+      tags:
+        - Comments
+      summary: commentOnPost
+      description: commentOnPost
+      operationId: commentonpost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Wow a new comment asdlkajsd
+            examples:
+              commentOnPost:
+                value:
+                  content: Wow a new comment asdlkajsd
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/posts/{post_id}/comment/{comment_id}:
+    delete:
+      tags:
+        - Comments
+      summary: deleteCommentOnPost
+      description: deleteCommentOnPost
+      operationId: deletecommentonpost
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: post_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: comment_id
         in: path
         required: true
         schema:
@@ -278,6 +401,24 @@ paths:
           description: ''
       security:
         - bearerAuth: []
+  /files/{file_path}:
+    get:
+      tags:
+        - Upload
+      summary: getUploadedFile
+      description: getUploadedFile
+      operationId: getuploadedfile
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: file_path
+        in: path
+        required: true
+        schema:
+          type: string
 components:
   securitySchemes:
     bearerAuth:
@@ -286,5 +427,6 @@ components:
 tags:
   - name: Users
   - name: Posts
+  - name: FilteringPosts
   - name: Comments
   - name: Upload

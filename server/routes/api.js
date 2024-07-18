@@ -17,6 +17,7 @@ router.get('/users/:uid', passport.authenticate('jwt', { session: false }), User
 router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser);
 router.post('/users/login', UserController.compPassword);
 router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser); // Update user endpoint
+router.delete('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.deleteUser);
 
 // Post section
 router.post('/posts/new', passport.authenticate('jwt', { session: false }), PostController.createPost);
