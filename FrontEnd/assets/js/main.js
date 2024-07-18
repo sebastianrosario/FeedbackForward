@@ -1,4 +1,7 @@
 // Grab elements
+
+localStorage.setItem("serverIp", "http://localhost:3000");
+
 const selectElement = (selector) => {
     const element = document.querySelector(selector);
     if(element) return element;

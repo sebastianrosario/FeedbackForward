@@ -1,5 +1,6 @@
 let signupbutton = document.getElementById("signupbutton");
 let signinbutton = document.getElementById("signinbutton");
+const serverIp = localStorage.getItem("serverIp")
 
 signinbutton.onclick = function() {
     window.location.href = "signin.html";
@@ -21,7 +22,7 @@ signupbutton.onclick = function() {
     });
 
     /***Used for testing the payload contents***/
-    fetch('http://192.168.28.129:3000/api/users', {
+    fetch(`${serverIp}/api/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

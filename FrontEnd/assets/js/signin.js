@@ -1,12 +1,13 @@
 let signupbutton = document.getElementById("signupbutton");
 let signinbutton = document.getElementById("signinbutton");
-
+const serverIp = localStorage.getItem("serverIp");
 signupbutton.onclick = function() {
     window.location.href = "signup.html";
 }
 
 signinbutton.onclick = function() {
     // Get form data
+    console.log(`SERVERIP: ${localStorage.getItem("serverIp")}`);
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
@@ -19,12 +20,13 @@ signinbutton.onclick = function() {
         password: hashedPassword
     });
 
-    fetch('http://192.168.28.129:3000/api/users/login', {
+    fetch(`${serverIp}/api/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: payload
+        body: payload,
+        redirect: "follow"
     })
     .then(response => response.json())
     .then(data => {
