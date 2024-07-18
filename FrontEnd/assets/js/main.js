@@ -6,6 +6,14 @@ const selectElement = (selector) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE");
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
     fetch('https://192.168.28.129:3000/api/posts/66984cb346930466bd080277') // Replace with your backend URL
     .then(response => response.json())
     .then(data => { 
