@@ -17,6 +17,9 @@ db.createUser(
     }
 )
 
+use ff_posts
+db.createCollection("posts")
+
 // exit mongoshell
 mongod --auth --port 27017 // make authentication mandatory, will restart mongo daemon
 ```
