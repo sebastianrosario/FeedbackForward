@@ -51,7 +51,7 @@ window.onload = function () {
                 const title = firstItem.title;
                 const date = new Date(firstItem.createdAt).toLocaleDateString(); // Format date
                 const user = firstItem.username;
-                print(title);
+                alert(title);
                 document.querySelector('.trending1.date').textContent = date;
                 document.querySelector('.trending1.title').textContent = title;
                 document.querySelector('.trending1.user').textContent = user;
