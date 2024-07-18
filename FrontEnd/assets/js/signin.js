@@ -34,7 +34,6 @@ signinbutton.onclick = function() {
             if (data.token) {
                 sessionStorage.setItem('key', data.token);
                 console.log('Key generated and stored:', data.token);
-                alert('key = ' + data.token);
             }
             window.location.href = "index.html";
         } else {

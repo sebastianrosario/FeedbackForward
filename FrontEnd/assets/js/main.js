@@ -32,7 +32,7 @@ const toggleMenu = () =>{
 menuToggleIcon.addEventListener('click', toggleMenu);
 
 document.addEventListener('DOMContentLoaded', function() {
-    const newPostButton = document.getElementById('New Post');
+    const newPostButton = document.getElementById('new Post');
     
     newPostButton.onclick = function() {
         window.location.href = 'newpost.html';

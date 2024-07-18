@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Article</title>
+</head>
+<body>
+    <a href="./post.html" class="article featured-article featured-article-1">
+        <!--<img src="./assets/images/featured/featured-1.jpg" alt="" class="article-image">-->
+        <span class="article-category"></span>
+
+        <div class="article-data-container">
+            <div class="article-data">
+                <span class="article-date"></span>
+                <span class="article-data-spacer"></span>
+            </div>
+            <h3 class="title article-title"></h3>
+        </div>
+    </a>
+
+    <script>
+        window.onload = function () {
+            fetch("http://192.168.28.129:3000/api/posts/669904ce46930466bd08029d",{
+                method: "GET",
+                headers:{
+                'Content-Type': 'application/json',
+                //'Authorization': "Bearer " + sessionStorage.getItem('key')
+                'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+                }
+            })
+            .then(response => response.json())
+            .then(data => { 
+                if (data.success) {
+                    const message = data.message;
+                    
+                    // Extract data from the JSON response
+                    const title = message.title;
+                    const category = message.tags.join(', '); // Combine tags into a single string
+                    const date = new Date(message.createdAt).toLocaleDateString(); // Format date
+
+                    // Update HTML elements with the fetched data
+                    document.querySelector('.article-category').textContent = category;
+                    document.querySelector('.article-date').textContent = date;
+                    document.querySelector('.article-title').textContent = title;
+                } else {
+                    console.error('Failed to fetch article data.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching article data:', error);
+            });
+        };
+    </script>
+</body>
+</html>
