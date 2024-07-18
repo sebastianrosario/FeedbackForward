@@ -26,7 +26,9 @@ window.onload = function () {
         } else {
             console.error('Failed to fetch article data.');
         }
-    })
+    })}
+    
+window.onload = function () {
     fetch("http://192.168.28.129:3000/api/posts/filter/byupvotes/",{
         method: "GET",
         headers:{
