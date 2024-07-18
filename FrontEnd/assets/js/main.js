@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
 
-    fetch(`${serverIp}/api/posts/filter/twohoursago`, { // Change to actual variable
+    fetch(`${serverIp}/api/posts/filter/byupvotes`, { // Change to actual variable
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -58,42 +58,61 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        const container = document.getElementById('container');
+        const container = document.getElementById('test-post-container');
         if (!container) {
             console.error('Posts container not found');
             return;
         }
-    
-        // Clear existing content
-        container.innerHTML = '';
-    
+
         data.message.forEach(post => {
             // Create elements
-            const postElement = document.createElement('div');
-            postElement.classList.add('post');
+            const postElement = document.createElement('a');
+            postElement.classList = ('article featured-article');
+            postElement.setAttribute('href', `./post.html?id=${post._id}`);
+            
+            const image = document.createElement('img');
+            image.setAttribute('src', './assets/images/featured/featured-1.jpg');
     
-            const titleElement = document.createElement('h2');
+            const titleElement = document.createElement('h3');
             titleElement.textContent = post.title;
+            titleElement.classList = "title article-title"
     
-            const contentElement = document.createElement('p');
-            contentElement.textContent = post.content;
-    
-            const tagsElement = document.createElement('div');
-            tagsElement.classList.add('tags');
+            const tagsElement = document.createElement('span');
+            tagsElement.classList.add('article-category');
             post.tags.forEach(tag => {
                 const tagElement = document.createElement('span');
                 tagElement.textContent = tag;
                 tagsElement.appendChild(tagElement);
             });
     
-            const authorElement = document.createElement('p');
-            authorElement.textContent = `Posted by ${post.username}`;
+            
+            const articleDataContainer = document.createElement('div');
+            articleDataContainer.classList = "article-data-container";
+            
+                const articleData = document.createElement('div');
+                articleData.classList = "article-data";
+                
+                    const authorElement = document.createElement('span');
+                    authorElement.textContent = `Posted by ${post.username}`;
+                    const date = document.createElement('span');
+                    date.textContent = new Date(post.createdAt).toLocaleDateString();
+                    const spacer = document.createElement('span')
+                    spacer.classList = "article-data-spacer";
+
+            articleData.appendChild(date)
+            articleData.appendChild(spacer);
+            articleData.appendChild(authorElement);
+
+
+
+            articleDataContainer.appendChild(articleData);
+            articleDataContainer.appendChild(titleElement)
     
             // Append elements to post container
-            postElement.appendChild(titleElement);
-            postElement.appendChild(contentElement);
+            postElement.appendChild(image);
+            postElement.appendChild(articleDataContainer);
+            // postElement.appendChild(contentElement);
             postElement.appendChild(tagsElement);
-            postElement.appendChild(authorElement);
     
             container.appendChild(postElement);
         });
