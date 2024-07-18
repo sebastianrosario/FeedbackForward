@@ -21,17 +21,13 @@
 
     <script>
         window.onload = function () {
-            alert("Never Gonna Give You Up");
-            const myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE");
-
-            const requestOptions = {
+            fetch("192.168.28.129:3000/api/posts/669904ce46930466bd08029d",{
                 method: "GET",
-                headers: myHeaders,
-                redirect: "follow"
-            };
-
-            fetch("192.168.28.129:3000/api/posts/669904ce46930466bd08029d", requestOptions)
+                headers:{
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+                }
+            })
             .then(response => response.json())
             .then(data => { 
                 if (data.success) {
