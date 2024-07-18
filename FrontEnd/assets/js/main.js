@@ -24,13 +24,12 @@ window.onload = function () {
             const category = message.tags.join(', '); // Combine tags into a single string
             const date = new Date(message.createdAt).toLocaleDateString(); // Format date
             const user = message.username;
-            alert(user);
 
             // Update HTML elements with the fetched data
             document.querySelector('.article-category').textContent = category;
             document.querySelector('.article-date').textContent = date;
             document.querySelector('.article-title').textContent = title;
-            document.querySelector('.article-user').textContent = user;
+            document.querySelector('.article-username').textContent = user;
         } else {
             console.error('Failed to fetch article data.');
         }
