@@ -37,6 +37,7 @@ window.onload = function () {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                alert("hello")
                 const firstItem = response.message[0];
                 const secondItem = response.message[1];
                 const thirdItem = response.message[2];
