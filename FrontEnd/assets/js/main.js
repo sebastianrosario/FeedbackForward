@@ -24,6 +24,7 @@ window.onload = function () {
             const category = message.tags.join(', '); // Combine tags into a single string
             const date = new Date(message.createdAt).toLocaleDateString(); // Format date
             const user = message.username;
+            alert(user);
 
             // Update HTML elements with the fetched data
             document.querySelector('.article-category').textContent = category;
