@@ -6,7 +6,16 @@ const selectElement = (selector) => {
 };
 
 window.onload = function () {
-    fetch("http://192.168.28.129:3000/api/posts/669904ce46930466bd08029d",{
+    fetch("http://192.168.28.129:3000/api/posts/filter/byupvotes/",{
+        method: "GET",
+        headers:{
+        'Content-Type': 'application/json',
+        //'Authorization': "Bearer " + sessionStorage.getItem('key')
+        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lIjoidGVzdHRlc3R0ZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
+        }
+    })
+
+    fetch("http://192.168.28.129:3000/api/posts/6699144d46930466bd0802db",{
         method: "GET",
         headers:{
         'Content-Type': 'application/json',
