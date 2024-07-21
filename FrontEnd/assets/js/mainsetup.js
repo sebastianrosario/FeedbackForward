@@ -46,9 +46,9 @@ window.onload = function () {
             if (posts.length > 0) {
                 const firstItem = posts[0];
                 const secondItem = posts[1];
-                const thirdItem = posts[0];
-                const forthItem = posts[1];
-                const fithItem = posts[1];
+                const thirdItem = posts[2];
+                const forthItem = posts[3];
+                const fithItem = posts[4];
 
                 //first element 
                 const title1 = firstItem.title;
