@@ -59,13 +59,14 @@ window.onload = function () {
                 document.getElementById('trending1-user').textContent = user1;
 
                 //second element
+                /*
                 const title2 = secondItem.title;
                 const date2 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
                 const user2 = secondItem.username;
 
                 document.getElementById('trending1-date').textContent = date2;
                 document.getElementById('trending1-title').textContent = title2;
-                document.getElementById('trending1-user').textContent = user2;
+                document.getElementById('trending1-user').textContent = user2;*/
             }
         } else {
             console.error('Failed to fetch trending posts.');
