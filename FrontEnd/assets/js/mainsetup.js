@@ -47,14 +47,25 @@ window.onload = function () {
 
             if (posts.length > 0) {
                 const firstItem = posts[0];
+                const secondItem = posts[1];
 
-                const title = firstItem.title;
-                const date = new Date(firstItem.createdAt).toLocaleDateString(); // Format date
-                const user = firstItem.username;
+                //first element 
+                const title1 = firstItem.title;
+                const date1 = new Date(firstItem.createdAt).toLocaleDateString(); // Format date
+                const user1 = firstItem.username;
 
-                document.getElementById('trending1-date').textContent = date;
-                document.getElementById('trending1-title').textContent = title;
-                document.getElementById('trending1-user').textContent = user;
+                document.getElementById('trending1-date').textContent = date1;
+                document.getElementById('trending1-title').textContent = title1;
+                document.getElementById('trending1-user').textContent = user1;
+
+                //second element
+                const title2 = secondItem.title;
+                const date2 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
+                const user2 = secondItem.username;
+
+                document.getElementById('trending1-date').textContent = date2;
+                document.getElementById('trending1-title').textContent = title2;
+                document.getElementById('trending1-user').textContent = user2;
             }
         } else {
             console.error('Failed to fetch trending posts.');
