@@ -36,7 +36,7 @@ window.onload = function () {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTkxMzU5NDY5MzA0NjZiZDA4MDJkMSIsInVzZXJuYW1lIjoiRmVlZGJhY2tGb3dhcmRBZG1pbiIsImlhdCI6MTcyMTMzNzAxNSwiZXhwIjoxNzIxMzU1MDE1fQ.WvCNk9XCiHK_xQPvmb_mwu0Qeqb5tC_bQKNuyhY3V0I"
+            'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lcHJlc2VudFRlc3RUZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
         }
     })
     .then(response => response.json())
@@ -51,10 +51,10 @@ window.onload = function () {
                 const title = firstItem.title;
                 const date = new Date(firstItem.createdAt).toLocaleDateString(); // Format date
                 const user = firstItem.username;
-                alert(title);
-                document.querySelector('.trending1date').textContent = date;
-                document.querySelector('.trending1title').textContent = title;
-                document.querySelector('.trending1user').textContent = user;
+
+                document.getElementById('trending1-date').textContent = date;
+                document.getElementById('trending1-title').textContent = title;
+                document.getElementById('trending1-user').textContent = user;
             }
         } else {
             console.error('Failed to fetch trending posts.');
