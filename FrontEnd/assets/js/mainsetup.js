@@ -71,8 +71,8 @@ window.onload = function () {
 
                 //third element
                 const title3 = thirdItem.title;
-                const date3 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
-                const user3 = secondItem.username;
+                const date3 = new Date(thirdItem.createdAt).toLocaleDateString(); // Format date
+                const user3 = thirdItem.username;
 
                 document.getElementById('trending3-date').textContent = date3;
                 document.getElementById('trending3-title').textContent = title3;
