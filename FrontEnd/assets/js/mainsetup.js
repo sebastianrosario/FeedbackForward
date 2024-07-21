@@ -4,7 +4,6 @@ window.onload = function () {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTkxMzU5NDY5MzA0NjZiZDA4MDJkMSIsInVzZXJuYW1lIjoiRmVlZGJhY2tGb3dhcmRBZG1pbiIsImlhdCI6MTcyMTMzNzAxNSwiZXhwIjoxNzIxMzU1MDE1fQ.WvCNk9XCiHK_xQPvmb_mwu0Qeqb5tC_bQKNuyhY3V0I"
         }
     })
     .then(response => response.json())
@@ -36,7 +35,6 @@ window.onload = function () {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGIzOGEyY2E3YjMwNTIxOWJhZDI3ZSIsInVzZXJuYW1lcHJlc2VudFRlc3RUZXN0IiwiaWF0IjoxNzIxMzAyOTM2LCJleHAiOjE3MjEzMjA5MzZ9.TuvDe4St_wZVrujNAIKe7MXpJFpAShEzsQiGbE-DHAE"
         }
     })
     .then(response => response.json())
@@ -48,6 +46,9 @@ window.onload = function () {
             if (posts.length > 0) {
                 const firstItem = posts[0];
                 const secondItem = posts[1];
+                const thirdItem = posts[0];
+                const forthItem = posts[1];
+                const fithItem = posts[1];
 
                 //first element 
                 const title1 = firstItem.title;
@@ -67,6 +68,33 @@ window.onload = function () {
                 document.getElementById('trending2-date').textContent = date2;
                 document.getElementById('trending2-title').textContent = title2;
                 document.getElementById('trending2-user').textContent = user2;
+
+                //third element
+                const title3 = thirdItem.title;
+                const date3 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
+                const user3 = secondItem.username;
+
+                document.getElementById('trending3-date').textContent = date3;
+                document.getElementById('trending3-title').textContent = title3;
+                document.getElementById('trending3-user').textContent = user3;
+
+                //forth element
+                const title4 = forthItem.title;
+                const date4 = new Date(forthItem.createdAt).toLocaleDateString(); // Format date
+                const user4 = forthItem.username;
+
+                document.getElementById('trending4-date').textContent = date4;
+                document.getElementById('trending4-title').textContent = title4;
+                document.getElementById('trending4-user').textContent = user4;
+
+                //fith
+                const title5 = fithItem.title;
+                const date5 = new Date(fithItem.createdAt).toLocaleDateString(); // Format date
+                const user5 = fithItem.username;
+
+                document.getElementById('trending5-date').textContent = date5;
+                document.getElementById('trending5-title').textContent = title5;
+                document.getElementById('trending5-user').textContent = user5;
             }
         } else {
             console.error('Failed to fetch trending posts.');
