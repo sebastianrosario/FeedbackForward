@@ -19,10 +19,10 @@ window.onload = function () {
             const user = message.username;
 
             // Update HTML elements with the fetched data
-            document.querySelector('.article-category').textContent = category;
-            document.querySelector('.article-date').textContent = date;
-            document.querySelector('.article-title').textContent = title;
-            document.querySelector('.article-username').textContent = user;
+            document.getElementById('featuredArticle1-category').textContent = category;
+            document.getElementById('featuredArticle1-date').textContent = date;
+            document.getElementById('featuredArticle1-title').textContent = title;
+            document.getElementById('featuredArticle1-username').textContent = user;
         } else {
             console.error('Failed to fetch article data.');
         }
@@ -58,6 +58,14 @@ window.onload = function () {
                 document.getElementById('trending1-title').textContent = title1;
                 document.getElementById('trending1-user').textContent = user1;
 
+                //second element
+                const title2 = secondItem.title;
+                const date2 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
+                const user2 = secondItem.username;
+
+                document.getElementById('trending1-date').textContent = date2;
+                document.getElementById('trending1-title').textContent = title2;
+                document.getElementById('trending1-user').textContent = user2;
             }
         } else {
             console.error('Failed to fetch trending posts.');
