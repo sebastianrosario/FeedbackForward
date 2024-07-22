@@ -179,6 +179,45 @@ getPostByTags = async (req, res) => {
 
 };
 
+getPostByKeyword = async(req, res) => {
+    const { query, sort } = req.query;
+
+    if (!query) {
+        return res.status(400).json({ message: 'Query parameter is required' });
+    }
+
+    const sortOptions = {
+        'top': { upvotes: -1 },
+        'new': { createdAt: -1 }
+    };
+
+    const sortCriteria = sortOptions[sort] || sortOptions['latest'];
+
+    try {
+        const posts = await PostModel.find({
+            $or: [
+                { content: { $regex: query, $options: 'i' } },
+                { title: { $regex: query, $options: 'i' } }
+            ]
+        }).sort(sortCriteria);
+
+        return res
+        .status(200)
+        .json({
+            success: true,
+            message: posts
+        });
+    } catch (error) {
+        return res
+        .status(400)
+        .json({
+            success: false,
+            message: "Something went wrong!",
+            error: error.message
+        });
+    }
+};
+
 // Create post
 createPost = async (req, res) => {
     try {
@@ -446,6 +485,7 @@ module.exports = {
     getPostByTime,
     getPostByUpvotes,
     getPostByTags,
+    getPostByKeyword,
     commentOnPost,
     deletePost,
     deleteCommentOnPost,
