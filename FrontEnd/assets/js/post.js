@@ -79,7 +79,7 @@ window.onload = function() {
     //})
 }
 
-document.getElementById('submit-comment').addEventListener('click', () => {
+submit.onclick = function() {
     const textInput = document.getElementById('comment-text');
     alert(hello)
     if (textInput != null)
@@ -113,5 +113,5 @@ document.getElementById('submit-comment').addEventListener('click', () => {
     else{
         alert('Please fill out the comment field.');
     }
-});
+};
 //get file path here & store it in a variable??

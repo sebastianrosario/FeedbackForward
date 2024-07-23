@@ -34,7 +34,28 @@ input[type="submit"] {
     touch-action: manipulation;
 }
 
-input[type="submit"]:before {
+.button {
+    background-color: rgb(230, 93,5);
+    border: 0;
+    border-radius: 56px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 0;
+    padding: 16px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button:before {
     background-color: initial;
     background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
     border-radius: 125px;
@@ -46,24 +67,8 @@ input[type="submit"]:before {
     top: 0;
     transition: all .3s;
     width: 92%;
-}
+  }
 
-input[type="submit"]:hover {
+  .button:hover{
     background-color: rgba(230, 91, 5, 0.550);
-}
-
-textarea {
-    resize: none;
-}
-
-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iI0NDQyI+PHBhdGggZD0iTTEuNzA3IDRsNi4yOTMgNi4yOTMgNi4yOTMtNi4yOTMuNzA3LjcwNy02Ljk5IDYuOTktNi45OTQtNi45OTQuNzA3LS43MDd6Ii8+PC9zdmc+');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-    padding-right: 30px;
-}
+  }
