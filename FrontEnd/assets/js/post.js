@@ -29,12 +29,37 @@ window.onload = function() {
     .then(data => {
         //console.log(data);
         //console.log(data.postId);
+        const comments = data.message.comments;
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("fileName").innerHTML = data.message.fileName;
 
         console.log(data);
+
+        function generateComments(commentsArray) {
+            const commentsContainer = document.getElementById('comments-container');
+    
+            commentsArray.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+    
+                const commentName = document.createElement('h3');
+                commentName.textContent = comment.username;
+                commentElement.appendChild(commentName);
+    
+                const commentText = document.createElement('p');
+                commentText.textContent = comment.content;
+                commentElement.appendChild(commentText);
+    
+                const commentDate = document.createElement('span');
+                commentDate.textContent = new Date(comment.createdAt).toLocaleDateString();
+                commentElement.appendChild(commentDate);
+    
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+        generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
     })
