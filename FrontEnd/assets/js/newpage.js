@@ -1,3 +1,5 @@
+let serverIp = localStorage.getItem("serverIp");
+
 document.getElementById('blogForm').addEventListener('submit', function(event) {
     event.preventDefault();
         
@@ -5,21 +7,22 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const body = document.getElementById('body').value;
     const category = document.getElementById('category').value;
 
-
-    fetch('http://192.168.28.129:3000/api/posts/new', {
+    fetch(`http://192.168.28.129:3000/api/posts/new`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + sessionStorage.getItem('key')
         },
-        body: JSON.stringify({ title: title, body: body, category: category})
+        body: JSON.stringify({ title: title, content: body, tags: [category]})
     })
     
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        if (data.success == true) {
             alert('Post submitted successfully!');
-            window.location.href = "index.html"; //Can change to the post itself later
+            console.log(data);
+            // window.location.href = "index.html"; //Can change to the post itself later
+            window.location.replace(`post.html?id=${data.postId}`)
         } else {
             alert('Failed to submit post.');
         }
