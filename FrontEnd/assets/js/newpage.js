@@ -7,7 +7,8 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const body = document.getElementById('body').value;
     const category = document.getElementById('category').value;
 
-    fetch(`${serverIp}/api/posts/new`, {
+    // fetch(`${serverIp}/api/posts/new`, {
+    fetch(`http://192.168.28.129:3000/api/posts/new`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
