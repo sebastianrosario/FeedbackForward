@@ -13,6 +13,8 @@ window.onload = function() {
 
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
+    //const filePath = new URLSearchParams(window.location.search);
+    //console.log(urlParams);
 
     // fetch(`${serverIp}/api/posts/new`, {
     //fetch(`http://192.168.28.129:3000/api/posts/new`, {
@@ -25,14 +27,29 @@ window.onload = function() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.postId);
+        //console.log(data);
+        //console.log(data.postId);
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
+        document.getElementById("fileName").innerHTML = data.message.fileName;
+
+        console.log(data);
+        //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
+    //get file path here & store it in a variable??
+    //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
+    //fetch(`${server-ip}/api/file/upload/${filePath.get("path")}`, {
+    //    method: 'POST',
+        //headers: {
+        //    'Content-Type': 'application/json',
+        //    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+        //},
+    //})
 }
+//get file path here & store it in a variable??

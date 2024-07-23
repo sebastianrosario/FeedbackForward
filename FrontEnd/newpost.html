@@ -26,7 +26,29 @@
                     </select>
 
                     <!-- File Upload for Post -->
-                    <input type="file" id="real-file" />
+                    <!-- <input type="file" id="real-file" /> -->
+                    <input type="file" id="fileName" />
+                    <!--<script id = "real-file">
+                        document.getElementById('blogForm').addEventListener('submit', function(e)) {
+                            e.preventDefault();
+                            
+                            const userFile = document.getElementById('file').files[0];
+                            const userComments = document.getElementById('comments').value;
+
+                            const formData = new FormData();
+                            formData.append('user-file', userFile, 'user-file.jpg')
+                            formData.append('user-comments', userComments);
+
+                            fetch(`${server-ip}/api/file/upload/${filePath.get("path")}`, {
+                                method: "POST",
+                                body: formData,
+                            })
+                            .then(res => res.json())
+                            .then(data => console.log(data))
+                            .catch(err => console.log(err));
+
+                        }
+                    </script>-->
                     
                     <label for="body">Body</label>
                     <textarea id="body" name="body" rows="10" required></textarea>
