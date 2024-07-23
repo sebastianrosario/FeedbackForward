@@ -14,6 +14,8 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
 
+    // fetch(`${serverIp}/api/posts/new`, {
+    //fetch(`http://192.168.28.129:3000/api/posts/new`, {
     fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, { // Change to actual variable
         method: 'GET',
         headers: {
