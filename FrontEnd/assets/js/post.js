@@ -70,6 +70,7 @@ window.onload = function() {
 
     document.getElementById('submit-comment').addEventListener('click', () => {
         const textInput = document.getElementById('comment-text');
+        alert(hello)
         if (textInput != null)
             {
             fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, { // Change to actual variable
@@ -102,7 +103,7 @@ window.onload = function() {
             alert('Please fill out the comment field.');
         }
     });
-    
+
     //get file path here & store it in a variable??
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
     //fetch(`${server-ip}/api/file/upload/${filePath.get("path")}`, {
