@@ -27,6 +27,7 @@ window.onload = function() {
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
+        //document.getElementById("file").innerHTML = data.get.file;
         //const title = data.message.title
     })
     .catch(error => {
