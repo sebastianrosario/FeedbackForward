@@ -77,11 +77,11 @@ window.onload = function() {
         //    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
         //},
     //})
-
     document.addEventListener('DOMContentLoaded', function() {
         const submit = document.getElementById('submit');
+        alert("this works")
         submit.onclick = function() {
-            const textInput = document.getElementsByClassName('button').value;
+            const textInput = document.getElementById('comment-text').value;
             if (textInput.trim() !== '') {
                 fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
                     method: 'POST',
@@ -107,7 +107,7 @@ window.onload = function() {
                 alert('Please fill out the comment field.');
             }
         };
-    });
+    });  
 }
 
 
