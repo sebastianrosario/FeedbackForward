@@ -1,35 +1,30 @@
-submit.onclick = function() {
-    const textInput = document.getElementById('comment-text');
-    alert(hello)
-    if (textInput != null)
-        {
-        fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, { // Change to actual variable
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-            },
-            body: JSON.stringify(newComment)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Add the new comment to the local comments array and regenerate the comments
-                comments.push(newComment);
-                generateComments(comments);
-
-                // Clear the form
-                nameInput.value = '';
-                textInput.value = '';
-            } else {
-                console.error('Failed to submit comment.');
-            }
-        })
-        .catch(error => {
-            console.error('Error submitting comment:', error);
-        });
-    }
-    else{
-        alert('Please fill out the comment field.');
-    }
-};
+document.addEventListener('DOMContentLoaded', function() {
+    const submit = document.getElementById('submit');
+    submit.onclick = function() {
+        const textInput = document.getElementsByClassName('button').value;
+        if (textInput.trim() !== '') {
+            fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+                },
+                body: JSON.stringify({ comment: textInput }) // Adjust as per your API requirements
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Handle success scenario
+                    console.log('Comment submitted successfully.');
+                } else {
+                    console.error('Failed to submit comment.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+        } else {
+            alert('Please fill out the comment field.');
+        }
+    };
+});
