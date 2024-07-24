@@ -6,6 +6,31 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const title = document.getElementById('title').value;
     const body = document.getElementById('body').value;
     const category = document.getElementById('category').value;
+    const fileInput = document.getElementById('fileName').files[0];
+    const filename = ''; 
+
+    fetch(`http://192.168.28.129:3000/api/file/upload`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+        },
+        body: JSON.stringify({image})
+    })
+    .then(response => response.json())
+    .then(data =>{
+        if (data.success) {
+            alert('Upload successful');
+            console.log("success");
+            if (data.file) {
+                filename = data.file.filename
+                alert(filename)
+            }
+            window.location.href = "index.html";
+        } else {
+            alert('Sign in failed: ' + data.message);
+        }
+    })
 
     fetch(`http://192.168.28.129:3000/api/posts/new`, {
         method: 'POST',
@@ -13,7 +38,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + sessionStorage.getItem('key')
         },
-        body: JSON.stringify({ title: title, content: body, tags: [category]})
+        body: JSON.stringify({ title: title, content: body, tags: [category], filePath: filename})
     })
     
     .then(response => response.json())
