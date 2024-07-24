@@ -12,7 +12,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
         const formData = new FormData();
         formData.append('file', fileInput);
 
-        fetch(`http://192.168.28.129:3000:3000/api/file/upload`, {
+        fetch(`http://192.168.28.129:3000/api/file/upload`, {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('key')
@@ -43,7 +43,7 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
 });
 
 function submitPost(title, body, category, filename) {
-    fetch(`http://192.168.28.129:3000:3000/api/posts/new`, {
+    fetch(`http://192.168.28.129:3000/api/posts/new`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
