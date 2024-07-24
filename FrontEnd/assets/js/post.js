@@ -7,12 +7,14 @@
 
 let serverIp = localStorage.getItem("serverIp");
 
+
 window.onload = function() {
     /***Used for testing the payload contents***/
     //fetch('http://192.168.28.129:3000/api/posts/${currentPost}', { // Change to actual variable
 
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
+    sessionStorage.setItem('url', urlParams.get("id"));
     //const filePath = new URLSearchParams(window.location.search);
     //console.log(urlParams);
 
@@ -79,9 +81,8 @@ window.onload = function() {
     //})
     document.addEventListener('DOMContentLoaded', function() {
         const submit = document.getElementById('submit');
-        alert("this works")
         submit.onclick = function() {
-            const textInput = document.getElementById('comment-text').value;
+            const textInput = document.getElementsByClassName('button').value;
             if (textInput.trim() !== '') {
                 fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
                     method: 'POST',
@@ -107,7 +108,7 @@ window.onload = function() {
                 alert('Please fill out the comment field.');
             }
         };
-    });  
+    });   
 }
 
 
