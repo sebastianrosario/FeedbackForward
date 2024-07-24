@@ -8,7 +8,8 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const category = document.getElementById('category').value;
     const fileInput = document.getElementById('fileName').files[0];
     const filename = ''; 
-
+    alert("imin")
+    
     fetch(`http://192.168.28.129:3000/api/file/upload`, {
         method: 'POST',
         headers: {
