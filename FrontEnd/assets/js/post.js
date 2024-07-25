@@ -36,31 +36,9 @@ window.onload = function() {
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         const filePath = data.message.filePath;
+        const imageElement = document.getElementById('image');
+        imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            const imageElement = document.getElementById('image');
-            const objectURL = URL.createObjectURL(blob);
-            imageElement.src = objectURL;
-            imageElement.onload = () => URL.revokeObjectURL(objectURL); // Clean up
-        })
-        .catch(error => {
-            console.error('Error fetching the image:', error);
-            const imageElement = document.getElementById('image');
-            imageElement.src = ''; // Clear the image source
-            imageElement.alt = "Failed to load image";
-        });
 
         console.log(data);
 
