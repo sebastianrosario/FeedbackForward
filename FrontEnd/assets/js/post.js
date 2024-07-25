@@ -1,11 +1,11 @@
-let serverIp = localStorage.getItem("http://192.168.28.129:3000");
+const serverIp = '192.168.28.129:3000';
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
 
-    fetch(`http://${serverIp}/api/posts/${urlParams.get("id")}`, { // Change to actual variable
+    fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, { // Change to actual variable
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
