@@ -15,6 +15,7 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
+    const imageURL = '';
     //const filePath = new URLSearchParams(window.location.search);
     //console.log(urlParams);
 
@@ -31,28 +32,11 @@ window.onload = function() {
         //console.log(data);
         //console.log(data.postId);
         const comments = data.message.comments;
-        const imageURL = data.message.filePath;
+        imageURL = data.message.filePath;
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("fileName").innerHTML = data.message.fileName;
-
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            const imageElement = document.getElementById('image');
-            const objectURL = URL.createObjectURL(blob);
-            imageElement.src = objectURL;
-        })
-        .catch(error => {
-            console.error('Error fetching the image:', error);
-            document.getElementById('image').alt = "Failed to load image";
-        });
 
         console.log(data);
 
@@ -86,6 +70,23 @@ window.onload = function() {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
+
+    fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const imageElement = document.getElementById('image');
+        const objectURL = URL.createObjectURL(blob);
+        imageElement.src = objectURL;
+    })
+    .catch(error => {
+        console.error('Error fetching the image:', error);
+        document.getElementById('image').alt = "Failed to load image";
+    }); 
 
     //get file path here & store it in a variable??
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
