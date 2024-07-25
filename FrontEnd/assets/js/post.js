@@ -39,23 +39,6 @@ window.onload = function() {
 
         console.log(data);
 
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            const imageElement = document.getElementById('image');
-            const objectURL = URL.createObjectURL(blob);
-            imageElement.src = objectURL;
-        })
-        .catch(error => {
-            console.error('Error fetching the image:', error);
-            document.getElementById('image').alt = "Failed to load image";
-        });
-
         function generateComments(commentsArray) {
             const commentsContainer = document.getElementById('comments-container');
     
@@ -78,6 +61,23 @@ window.onload = function() {
                 commentsContainer.appendChild(commentElement);
             });
         }
+        
+        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const imageElement = document.getElementById('image');
+            const objectURL = URL.createObjectURL(blob);
+            imageElement.src = objectURL;
+        })
+        .catch(error => {
+            console.error('Error fetching the image:', error);
+            document.getElementById('image').alt = "Failed to load image";
+        });
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
