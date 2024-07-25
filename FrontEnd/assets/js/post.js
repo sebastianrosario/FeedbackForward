@@ -31,7 +31,7 @@ window.onload = function() {
         //console.log(data);
         //console.log(data.postId);
         const comments = data.message.comments;
-        const imageURL = data.filePath; 
+        const imageURL = data.message.filePath;
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
