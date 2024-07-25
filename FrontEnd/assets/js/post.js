@@ -6,7 +6,7 @@
 // let currentPostURL = currentPostURLStart.concat(currentPostIDString);
 
 let serverIp = localStorage.getItem("serverIp");
-
+postid = ''; 
 
 window.onload = function() {
     /***Used for testing the payload contents***/
@@ -15,6 +15,7 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
+    postid = urlParams.get("id");
     //const filePath = new URLSearchParams(window.location.search);
     //console.log(urlParams);
 
@@ -119,5 +120,29 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.addEventListener('click', function() {
         const textInput = document.getElementById('comment-text').value; // Corrected line
         alert(textInput);
+        if (textInput.trim() !== '') {
+            fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+                },
+                body: JSON.stringify({ content: textInput }) // Adjust as per your API requirements
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Handle success scenario
+                    console.log('Comment submitted successfully.');
+                } else {
+                    console.error('Failed to submit comment.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+        } else {
+            alert('Please fill out the comment field.');
+        }
     });
 });
