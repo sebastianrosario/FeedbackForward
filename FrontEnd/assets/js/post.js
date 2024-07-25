@@ -43,15 +43,23 @@ window.onload = function() {
                 'Content-Type': 'application/json',
             },
         })
-        .then(response => response.blob())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
         .then(blob => {
             const imageElement = document.getElementById('image');
             const objectURL = URL.createObjectURL(blob);
             imageElement.src = objectURL;
+            imageElement.onload = () => URL.revokeObjectURL(objectURL); // Clean up
         })
         .catch(error => {
             console.error('Error fetching the image:', error);
-            document.getElementById('image').alt = "Failed to load image";
+            const imageElement = document.getElementById('image');
+            imageElement.src = ''; // Clear the image source
+            imageElement.alt = "Failed to load image";
         });
 
         console.log(data);
@@ -81,16 +89,6 @@ window.onload = function() {
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
-        fetch(`${server-ip}/files/${filePath}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-        });
     })
     .catch(error => {
         console.error('Error:', error);
