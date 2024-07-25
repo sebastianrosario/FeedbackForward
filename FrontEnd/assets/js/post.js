@@ -37,8 +37,7 @@ window.onload = function() {
         document.getElementById("tags").innerHTML = data.message.tags;
         const filePath = data.message.filePath;
         alert(imageURL)
-        const imageElement = document.getElementById('image');
-        imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
+        document.getElementById('image').interHTLM = `http://192.168.28.129:3000/files/${imageURL}`;
 
 
         console.log(data);
