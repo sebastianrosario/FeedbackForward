@@ -9,18 +9,12 @@ let serverIp = localStorage.getItem("serverIp");
 postid = ''; 
 
 window.onload = function() {
-    /***Used for testing the payload contents***/
-    //fetch('http://192.168.28.129:3000/api/posts/${currentPost}', { // Change to actual variable
-
+    
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
     postid = urlParams.get("id");
-    //const filePath = new URLSearchParams(window.location.search);
-    //console.log(urlParams);
 
-    // fetch(`${serverIp}/api/posts/new`, {
-    //fetch(`http://192.168.28.129:3000/api/posts/new`, {
     fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, { // Change to actual variable
         method: 'GET',
         headers: {
@@ -64,18 +58,11 @@ window.onload = function() {
             });
         }
         generateComments(comments);
-        //document.getElementById("file").innerHTML = data.message.filePath;
-        //const title = data.message.title
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
-
-    //get file path here & store it in a variable??
-    //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
-
-    //comment handler
     document.addEventListener('DOMContentLoaded', function() {
         const submitButton = document.getElementById('submitComment');
         submitButton.addEventListener('click', function() {
@@ -83,36 +70,6 @@ window.onload = function() {
             alert(textInput);
         });
     });
-
-/*
-    const submitButton = document.getElementById('submitComment');
-    submitButton.addEventListener('click', function() {
-        const textInput = document.getElementsByClassName('button').value;
-        if (textInput.trim() !== '') {
-            fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-                },
-                body: JSON.stringify({ content: textInput }) // Adjust as per your API requirements
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Handle success scenario
-                    console.log('Comment submitted successfully.');
-                } else {
-                    console.error('Failed to submit comment.');
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting comment:', error);
-            });
-        } else {
-            alert('Please fill out the comment field.');
-        }
-    });  */
 }
 
 document.addEventListener('DOMContentLoaded', function() {
