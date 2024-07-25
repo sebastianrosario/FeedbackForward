@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.getElementById('submitComment');
     submitButton.addEventListener('click', function() {
         const textInput = document.getElementById('comment-text').value; // Corrected line
-        alert(textInput);
         if (textInput.trim() !== '') {
             fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
                 method: 'POST',
