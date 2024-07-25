@@ -28,6 +28,7 @@ router.get('/posts/filter/fromuser/:uid', passport.authenticate('jwt', { session
 router.get('/posts/filter/byupvotes', passport.authenticate('jwt', { session: false }), PostController.getPostByUpvotes);
 router.get('/posts/filter/twohoursago', passport.authenticate('jwt', { session: false }), PostController.getPostByTime);
 router.get('/posts/filter/tags', passport.authenticate('jwt', { session: false }), PostController.getPostByTags)
+router.get('/posts/filter/search', passport.authenticate('jwt', { session: false }), PostController.getPostByKeyword)
 router.delete('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.deletePost);
 
 // Comments
