@@ -35,24 +35,8 @@ window.onload = function() {
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
-        const filePath = data.message.filePath;
-
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            const imageElement = document.getElementById('image');
-            const objectURL = URL.createObjectURL(blob);
-            imageElement.src = objectURL;
-        })
-        .catch(error => {
-            console.error('Error fetching the image:', error);
-            document.getElementById('image').alt = "Failed to load image";
-        });
+        const imageElement = document.getElementById('image');
+        imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
         console.log(data);
 
@@ -81,16 +65,6 @@ window.onload = function() {
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
-        fetch(`${server-ip}/files/${filePath}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-        });
     })
     .catch(error => {
         console.error('Error:', error);
