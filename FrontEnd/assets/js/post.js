@@ -112,4 +112,11 @@ window.onload = function() {
             alert('Please fill out the comment field.');
         }
     });  */
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById('submitComment');
+        submitButton.addEventListener('click', function() {
+            const textInput = document.getElementById('comment-text').value; // Corrected line
+            alert(textInput);
+        });
+    });
 }
