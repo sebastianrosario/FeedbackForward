@@ -65,12 +65,13 @@ window.onload = function() {
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
+        
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
-
+    alert(imageURL)
     fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
         method: 'GET',
         headers: {
