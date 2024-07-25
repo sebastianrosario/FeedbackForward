@@ -74,10 +74,9 @@ window.onload = function() {
     //get file path here & store it in a variable??
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
 
-//comment handler
-    const submitButton = document.getElementById('submit');
+    //comment handler
+    const submitButton = document.getElementById('submitComment');
     submitButton.addEventListener('click', function() {
-        alert(hello)
         const textInput = document.getElementsByClassName('button').value;
         if (textInput.trim() !== '') {
             fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
