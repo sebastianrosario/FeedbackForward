@@ -35,7 +35,7 @@ window.onload = function() {
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
-        document.getElementById("fileName").innerHTML = data.message.fileName;
+        const filePath = data.message.filePath;
 
         console.log(data);
 
@@ -64,6 +64,16 @@ window.onload = function() {
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
+        fetch(`${server-ip}/files/${filePath}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+        });
     })
     .catch(error => {
         console.error('Error:', error);
@@ -72,13 +82,8 @@ window.onload = function() {
 
     //get file path here & store it in a variable??
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
-    //fetch(`${server-ip}/api/file/upload/${filePath.get("path")}`, {
-    //    method: 'POST',
-        //headers: {
-        //    'Content-Type': 'application/json',
-        //    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-        //},
-    //})
+
+
     document.addEventListener('DOMContentLoaded', function() {
         const submit = document.getElementById('submit');
         submit.onclick = function() {
