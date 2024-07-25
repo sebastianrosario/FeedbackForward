@@ -37,6 +37,23 @@ window.onload = function() {
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("fileName").innerHTML = data.message.fileName;
 
+        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { // Change to actual variable
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data)
+            // Assuming the image URL is in data.imageUrl
+            document.getElementById('image') = data;  // Update the src attribute with the fetched URL
+        })
+        .catch(error => {
+            console.error('Error fetching the image:', error);
+            document.getElementById('image').alt = "Failed to load image";
+        });
+
         console.log(data);
 
         function generateComments(commentsArray) {
@@ -61,33 +78,14 @@ window.onload = function() {
                 commentsContainer.appendChild(commentElement);
             });
         }
-        
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            const imageElement = document.getElementById('image');
-            const objectURL = URL.createObjectURL(blob);
-            imageElement.src = objectURL;
-        })
-        .catch(error => {
-            console.error('Error fetching the image:', error);
-            document.getElementById('image').alt = "Failed to load image";
-        });
         generateComments(comments);
         //document.getElementById("file").innerHTML = data.message.filePath;
         //const title = data.message.title
-        
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
-
 
     //get file path here & store it in a variable??
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
