@@ -20,7 +20,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             sessionStorage.setItem('url', urlParams.get("id"));
 
-            fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, {
+            fetch(`http://192.168.28.129:3000/api/posts/66a18aee27e0c4ab1c318fe5}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@
                 submit.onclick = function() {
                     const textInput = document.getElementsByClassName('button')[0].value;
                     if (textInput.trim() !== '') {
-                        fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
+                        fetch(`http://192.168.28.129:3000/api/posts/66a18aee27e0c4ab1c318fe5/comment`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
