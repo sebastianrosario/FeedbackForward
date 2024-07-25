@@ -1,26 +1,11 @@
-//var currentPost = sessionStorage.getItem(postId)
-// var currentPostID = sessionStorage.getItem(postId)
-// var currentPost = sessionStorage.getItem("66984bd446930466bd080228")
-// let currentPostURLStart = "http://192.168.28.129:3000/api/posts/"
-// let currentPostIDString = toString(currentPostID)
-// let currentPostURL = currentPostURLStart.concat(currentPostIDString);
-
-let serverIp = localStorage.getItem("serverIp");
-
+let serverIp = localStorage.getItem("http://192.168.28.129:3000");
 
 window.onload = function() {
-    /***Used for testing the payload contents***/
-    //fetch('http://192.168.28.129:3000/api/posts/${currentPost}', { // Change to actual variable
-
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
-    //const filePath = new URLSearchParams(window.location.search);
-    //console.log(urlParams);
 
-    // fetch(`${serverIp}/api/posts/new`, {
-    //fetch(`http://192.168.28.129:3000/api/posts/new`, {
-    fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, { // Change to actual variable
+    fetch(`http://${serverIp}/api/posts/${urlParams.get("id")}`, { // Change to actual variable
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -28,8 +13,6 @@ window.onload = function() {
     })
     .then(response => response.json())
     .then(data => {
-        //console.log(data);
-        //console.log(data.postId);
         const comments = data.message.comments;
         const imageURL = data.message.filePath;
         document.getElementById("title").innerHTML = data.message.title;
@@ -37,24 +20,22 @@ window.onload = function() {
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("fileName").innerHTML = data.message.fileName;
 
-        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { // Change to actual variable
+        fetch(`http://${serverIp}/files/${imageURL}`, { // Change to actual variable
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            alert(data)
-            // Assuming the image URL is in data.imageUrl
-            document.getElementById('image') = data;  // Update the src attribute with the fetched URL
+        .then(response => response.blob())
+        .then(blob => {
+            const imageElement = document.getElementById('image');
+            const objectURL = URL.createObjectURL(blob);
+            imageElement.src = objectURL;
         })
         .catch(error => {
             console.error('Error fetching the image:', error);
             document.getElementById('image').alt = "Failed to load image";
         });
-
-        console.log(data);
 
         function generateComments(commentsArray) {
             const commentsContainer = document.getElementById('comments-container');
@@ -79,29 +60,18 @@ window.onload = function() {
             });
         }
         generateComments(comments);
-        //document.getElementById("file").innerHTML = data.message.filePath;
-        //const title = data.message.title
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Post Fetch Failed');
     });
 
-    //get file path here & store it in a variable??
-    //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
-    //fetch(`${server-ip}/api/file/upload/${filePath.get("path")}`, {
-    //    method: 'POST',
-        //headers: {
-        //    'Content-Type': 'application/json',
-        //    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-        //},
-    //})
     document.addEventListener('DOMContentLoaded', function() {
         const submit = document.getElementById('submit');
         submit.onclick = function() {
-            const textInput = document.getElementsByClassName('button').value;
+            const textInput = document.getElementById('commentText').value;
             if (textInput.trim() !== '') {
-                fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
+                fetch(`http://${serverIp}/api/posts/${urlParams.get("id")}/comment`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,6 +84,7 @@ window.onload = function() {
                     if (data.success) {
                         // Handle success scenario
                         console.log('Comment submitted successfully.');
+                        // Optionally, refresh comments or clear input field
                     } else {
                         console.error('Failed to submit comment.');
                     }
@@ -125,8 +96,5 @@ window.onload = function() {
                 alert('Please fill out the comment field.');
             }
         };
-    });   
-}
-
-
-//get file path here & store it in a variable??
+    });
+};
