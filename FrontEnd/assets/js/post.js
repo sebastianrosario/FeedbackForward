@@ -46,8 +46,7 @@ window.onload = function() {
         .then(response => response.json())
         .then(data => {
             // Assuming the image URL is in data.imageUrl
-            const imageElement = document.getElementById('image');
-            imageElement.src = data.imageUrl;  // Update the src attribute with the fetched URL
+            document.getElementById('image') = data;  // Update the src attribute with the fetched URL
         })
         .catch(error => {
             console.error('Error fetching the image:', error);
