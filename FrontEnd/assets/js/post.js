@@ -45,6 +45,7 @@ window.onload = function() {
         })
         .then(response => response.json())
         .then(data => {
+            alert(data)
             // Assuming the image URL is in data.imageUrl
             document.getElementById('image') = data;  // Update the src attribute with the fetched URL
         })
