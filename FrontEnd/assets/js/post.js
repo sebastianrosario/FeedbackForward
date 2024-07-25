@@ -1,11 +1,9 @@
-const serverIp = '192.168.28.129:3000';
-
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams);
-    sessionStorage.setItem('url', urlParams.get("id"));
+    const postId = urlParams.get("id");
 
-    fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`, { // Change to actual variable
+    // Fetch post data
+    fetch(`http://192.168.28.129:3000/api/posts/${postId}`, { 
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -13,14 +11,15 @@ window.onload = function() {
     })
     .then(response => response.json())
     .then(data => {
-        const comments = data.message.comments;
-        const imageURL = data.message.filePath;
-        document.getElementById("title").innerHTML = data.message.title;
-        document.getElementById("content").innerHTML = data.message.content;
-        document.getElementById("tags").innerHTML = data.message.tags;
-        document.getElementById("fileName").innerHTML = data.message.fileName;
+        const { title, content, tags, filePath, comments } = data.message;
 
-        fetch(`http://${serverIp}/files/${imageURL}`, { // Change to actual variable
+        document.getElementById("title").innerHTML = title;
+        document.getElementById("content").innerHTML = content;
+        document.getElementById("tags").innerHTML = tags;
+        document.getElementById("fileName").innerHTML = filePath;
+
+        // Fetch and display the image
+        fetch(`http://192.168.28.129:3000/files/${filePath}`, { 
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,28 +36,29 @@ window.onload = function() {
             document.getElementById('image').alt = "Failed to load image";
         });
 
+        // Generate comments
         function generateComments(commentsArray) {
             const commentsContainer = document.getElementById('comments-container');
-    
             commentsArray.forEach(comment => {
                 const commentElement = document.createElement('div');
                 commentElement.className = 'comment';
-    
+
                 const commentName = document.createElement('h3');
                 commentName.textContent = comment.username;
                 commentElement.appendChild(commentName);
-    
+
                 const commentText = document.createElement('p');
                 commentText.textContent = comment.content;
                 commentElement.appendChild(commentText);
-    
+
                 const commentDate = document.createElement('span');
                 commentDate.textContent = new Date(comment.createdAt).toLocaleDateString();
                 commentElement.appendChild(commentDate);
-    
+
                 commentsContainer.appendChild(commentElement);
             });
         }
+
         generateComments(comments);
     })
     .catch(error => {
@@ -66,35 +66,33 @@ window.onload = function() {
         alert('Post Fetch Failed');
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const submit = document.getElementById('submit');
-        submit.onclick = function() {
-            const textInput = document.getElementById('commentText').value;
-            if (textInput.trim() !== '') {
-                fetch(`http://${serverIp}/api/posts/${urlParams.get("id")}/comment`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-                    },
-                    body: JSON.stringify({ comment: textInput }) // Adjust as per your API requirements
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Handle success scenario
-                        console.log('Comment submitted successfully.');
-                        // Optionally, refresh comments or clear input field
-                    } else {
-                        console.error('Failed to submit comment.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error submitting comment:', error);
-                });
-            } else {
-                alert('Please fill out the comment field.');
-            }
-        };
+    // Submit a new comment
+    document.getElementById('submit').addEventListener('click', function() {
+        const textInput = document.getElementById('comment-text').value;
+        if (textInput.trim() !== '') {
+            fetch(`http://192.168.28.129:3000/api/posts/${postId}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+                },
+                body: JSON.stringify({ comment: textInput }) // Adjust as per your API requirements
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Handle success scenario
+                    console.log('Comment submitted successfully.');
+                    // Optionally, reload comments or clear the input field
+                } else {
+                    console.error('Failed to submit comment.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+        } else {
+            alert('Please fill out the comment field.');
+        }
     });
-};
+}
