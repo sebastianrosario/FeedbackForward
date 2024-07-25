@@ -85,7 +85,7 @@ window.onload = function() {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
-                body: JSON.stringify({ comment: textInput }) // Adjust as per your API requirements
+                body: JSON.stringify({ content: textInput }) // Adjust as per your API requirements
             })
             .then(response => response.json())
             .then(data => {
