@@ -24,7 +24,6 @@ window.onload = function() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionStorage.getItem('key')
         },
     })
     .then(response => response.json())
@@ -32,32 +31,50 @@ window.onload = function() {
         //console.log(data);
         //console.log(data.postId);
         const comments = data.message.comments;
+        const imageURL = data.message.filePath;
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         const filePath = data.message.filePath;
 
+        fetch(`http://192.168.28.129:3000/files/${imageURL}`, { 
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const imageElement = document.getElementById('image');
+            const objectURL = URL.createObjectURL(blob);
+            imageElement.src = objectURL;
+        })
+        .catch(error => {
+            console.error('Error fetching the image:', error);
+            document.getElementById('image').alt = "Failed to load image";
+        });
+
         console.log(data);
 
         function generateComments(commentsArray) {
             const commentsContainer = document.getElementById('comments-container');
-    
+
             commentsArray.forEach(comment => {
                 const commentElement = document.createElement('div');
                 commentElement.className = 'comment';
-    
+
                 const commentName = document.createElement('h3');
                 commentName.textContent = comment.username;
                 commentElement.appendChild(commentName);
-    
+
                 const commentText = document.createElement('p');
                 commentText.textContent = comment.content;
                 commentElement.appendChild(commentText);
-    
+
                 const commentDate = document.createElement('span');
                 commentDate.textContent = new Date(comment.createdAt).toLocaleDateString();
                 commentElement.appendChild(commentDate);
-    
+
                 commentsContainer.appendChild(commentElement);
             });
         }
@@ -115,6 +132,3 @@ window.onload = function() {
         };
     });   
 }
-
-
-//get file path here & store it in a variable??
