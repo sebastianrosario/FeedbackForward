@@ -45,8 +45,15 @@ window.onload = function() {
         })
         .then(response => response.json())
         .then(data => {
-            
+            // Assuming the image URL is in data.imageUrl
+            const imageElement = document.getElementById('image');
+            imageElement.src = data.imageUrl;  // Update the src attribute with the fetched URL
+        })
+        .catch(error => {
+            console.error('Error fetching the image:', error);
+            document.getElementById('image').alt = "Failed to load image";
         });
+
         console.log(data);
 
         function generateComments(commentsArray) {
