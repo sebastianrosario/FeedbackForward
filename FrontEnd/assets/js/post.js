@@ -75,6 +75,15 @@ window.onload = function() {
     //(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}`,
 
     //comment handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById('submitComment');
+        submitButton.addEventListener('click', function() {
+            const textInput = document.getElementById('comment-text').value; // Corrected line
+            alert(textInput);
+        });
+    });
+
+/*
     const submitButton = document.getElementById('submitComment');
     submitButton.addEventListener('click', function() {
         const textInput = document.getElementsByClassName('button').value;
@@ -102,5 +111,5 @@ window.onload = function() {
         } else {
             alert('Please fill out the comment field.');
         }
-    });  
+    });  */
 }
