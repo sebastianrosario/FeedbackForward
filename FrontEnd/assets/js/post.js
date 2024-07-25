@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.addEventListener('click', function() {
         const textInput = document.getElementById('comment-text').value; // Corrected line
         if (textInput.trim() !== '') {
-            fetch(`http://192.168.28.129:3000/api/posts/${urlParams.get("id")}/comment`, {
+            fetch(`http://192.168.28.129:3000/api/posts/${postid}/comment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
