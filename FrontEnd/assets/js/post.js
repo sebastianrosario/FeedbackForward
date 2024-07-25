@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     // Handle success scenario
                     console.log('Comment submitted successfully.');
+                    window.location.reload();
                 } else {
                     console.error('Failed to submit comment.');
                 }
