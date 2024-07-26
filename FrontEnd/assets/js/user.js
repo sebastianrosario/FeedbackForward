@@ -14,8 +14,8 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(userId);
-            document.getElementById('userName').innerHTML = data.message.userName;
+            alert(data);
+            document.getElementById('username').innerHTML = data.message.userName;
             document.getElementById('bio').innerHTML = data.message.bio;
         } else {
             console.error('Failed to fetch user data');
