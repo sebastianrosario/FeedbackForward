@@ -8,6 +8,7 @@ window.onload = function() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTkxMzU5NDY5MzA0NjZiZDA4MDJkMSIsInVzZXJuYW1lIjoiRmVlZGJhY2tGb3dhcmRBZG1pbiIsImlhdCI6MTcyMTk1ODc0NiwiZXhwIjoxNzIxOTc2NzQ2fQ.5wdAztFxYwXu0AkKqRQbuqBd6fsXn7zrf8VdNDbWKa4'
         },
     })
     .then(response => response.json())
