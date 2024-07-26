@@ -17,6 +17,9 @@ window.onload = function() {
             alert(data.message._id);
             document.getElementById('username').innerHTML = data.message.username;
             document.getElementById('bio').innerHTML = data.message.bio;
+            const imageURL = data.message.picPath;
+            const imageElement = document.getElementById('image');
+            imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
         } else {
             console.error('Failed to fetch user data');
         }
