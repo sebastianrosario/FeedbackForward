@@ -14,7 +14,7 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(data);
+            alert(data.message._id);
             document.getElementById('username').innerHTML = data.message.userName;
             document.getElementById('bio').innerHTML = data.message.bio;
         } else {
