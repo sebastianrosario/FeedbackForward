@@ -33,6 +33,7 @@ signinbutton.onclick = function() {
             console.log("success");
             if (data.token) {
                 sessionStorage.setItem('key', data.token);
+                sessionStorage.setItem("username", username)
                 console.log('Key generated and stored:', data.token);
             }
             window.location.href = "index.html";

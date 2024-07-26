@@ -17,7 +17,8 @@ signupbutton.onclick = function() {
     const payload = JSON.stringify({
         username: username,
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
+        picPath: 'file-1721958761818-898854518.png'
     });
 
     /***Used for testing the payload contents***/
