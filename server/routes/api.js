@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 // User section
 router.post('/users', UserController.createUser);
-router.get('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.getUserByUsername);
+router.get('/users/:uid', UserController.getUserByUsername);
 router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser);
 router.post('/users/login', UserController.compPassword);
 router.put('/users/:uid', passport.authenticate('jwt', { session: false }), UserController.updateUser); // Update user endpoint
@@ -23,12 +23,12 @@ router.delete('/users/:uid', passport.authenticate('jwt', { session: false }), U
 router.post('/posts/new', passport.authenticate('jwt', { session: false }), PostController.createPost);
 router.put('/posts/:pid/upvote', passport.authenticate('jwt', { session: false }), PostController.upvotePost);
 router.put('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.updatePost); // Update post endpoint
-router.get('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.getPostById);
-router.get('/posts/filter/fromuser/:uid', passport.authenticate('jwt', { session: false }), PostController.getPostByUsername);
-router.get('/posts/filter/byupvotes', passport.authenticate('jwt', { session: false }), PostController.getPostByUpvotes);
-router.get('/posts/filter/twohoursago', passport.authenticate('jwt', { session: false }), PostController.getPostByTime);
-router.get('/posts/filter/tags', passport.authenticate('jwt', { session: false }), PostController.getPostByTags)
-router.get('/posts/filter/search', passport.authenticate('jwt', { session: false }), PostController.getPostByKeyword)
+router.get('/posts/:pid', PostController.getPostById);
+router.get('/posts/filter/fromuser/:uid', PostController.getPostByUsername);
+router.get('/posts/filter/byupvotes', PostController.getPostByUpvotes);
+router.get('/posts/filter/twohoursago', PostController.getPostByTime);
+router.get('/posts/filter/tags', PostController.getPostByTags)
+router.get('/posts/filter/search', PostController.getPostByKeyword)
 router.delete('/posts/:pid', passport.authenticate('jwt', { session: false }), PostController.deletePost);
 
 // Comments
