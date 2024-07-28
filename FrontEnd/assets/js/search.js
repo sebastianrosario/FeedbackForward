@@ -9,6 +9,7 @@ window.onload = function () {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('key')
         }
     })
     .then(response => response.json())
