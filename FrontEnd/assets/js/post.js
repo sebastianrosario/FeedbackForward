@@ -33,10 +33,10 @@ window.onload = function() {
         document.getElementById("author").innerHTML = data.message.username;
         //href = http://127.0.0.1:3000/FrontEnd/user.html?id=FeedbackFowardAdmin
         const imageElement = document.getElementById('image');
-        //imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
+        imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
-        alert(`http://127.0.0.1:3000/FrontEnd/user.html?id=${data.message.username}`);
-        document.getElementById('authorLink') = `http://127.0.0.1:3000/FrontEnd/user.html?id=${data.message.username}`;
+        //alert(`http://127.0.0.1:3000/FrontEnd/user.html?id=${data.message.username}`);
+        //document.getElementById('authorLink') = `http://127.0.0.1:3000/FrontEnd/user.html?id=${data.message.username}`;
 
         console.log(data);
 
