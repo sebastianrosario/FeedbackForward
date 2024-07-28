@@ -31,6 +31,8 @@ window.onload = function() {
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("author").innerHTML = data.message.username;
+        //href = http://127.0.0.1:3000/FrontEnd/user.html?id=FeedbackFowardAdmin
+        document.getElementById("auther").href = 'http://127.0.0.1:3000/FrontEnd/user.html?id=FeedbackFowardAdmin'
         const imageElement = document.getElementById('image');
         imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
