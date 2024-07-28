@@ -36,6 +36,7 @@ window.onload = function() {
         imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
         const authorLink = document.getElementById('authorLink');
+        authorLink.innerHTML = message.author;
         authorLink.href = `http://127.0.0.1:3000/FrontEnd/user.html?id=${data.message.username}`; // Assuming authorId is available
 
         console.log(data);
