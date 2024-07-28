@@ -30,6 +30,7 @@ window.onload = function() {
         document.getElementById("title").innerHTML = data.message.title;
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
+        document.getElementById("author").innerHTML = data.message.username;
         const imageElement = document.getElementById('image');
         imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
