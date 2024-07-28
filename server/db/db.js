@@ -5,7 +5,7 @@ const database = "ff_users";
 const port = '27017';
 const mongo_authentication = "ff_login:test123";
 
-const connectionString = `mongodb://${mongo_authentication}@${server}:${port}/${database}?authSource=feedback-forward`;
+const connectionString = `mongodb://${mongo_authentication}@${server}:${port}/${database}?authSource=ff_users`;
 
 class Database {
   constructor() {
