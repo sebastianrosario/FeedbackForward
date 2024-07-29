@@ -14,6 +14,9 @@ window.onload = function () {
     })
     .then(response => response.json())
     .then(data => {
+
+        const posts = data.message;
+        
         if (posts.length > 0) {
             const firstItem = posts[0];
             const secondItem = posts[1];
