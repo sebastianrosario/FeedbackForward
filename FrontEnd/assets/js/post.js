@@ -125,19 +125,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     likeButton.addEventListener('click', function() {
-        // Toggle the like state
-        fetch(`192.168.28.129:3000/api/posts/${postid}/upvote`, requestOptions)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();  // Assuming the response is JSON
-        })
-        .then((result) => console.log(result))
-        .catch(error => {
-            console.error('Error submitting comment:', error);
-        });           
-        
+        // Toggle the like state   
+
         if (likeButton.classList.contains('liked')) {
             likeButton.classList.remove('liked');
             likeButton.innerHTML = '<i class="ri-thumb-up-line"></i> Like';
@@ -155,7 +144,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: myHeaders,
                 redirect: "follow"
               };
- 
+
+              fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, requestOptions)
+              .then((response) => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();  // Assuming the response is JSON
+              })
+              .then((result) => console.log(result))
+              .catch(error => {
+                  console.error('Error submitting comment:', error);
+              });        
+              
             window.location.reload();
         }
     });
