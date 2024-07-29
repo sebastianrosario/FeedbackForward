@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const myHeaders = new Headers();
               fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`,{
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
