@@ -122,7 +122,7 @@ window.onload = function () {
                 const id5 = fithItem._id;
 
                 const imageElement5 = document.getElementById('trending5-image');
-                const imageURL5 = firstItem.filePath;
+                const imageURL5 = fithItem.filePath;
                 imageElement5.src = `http://192.168.28.129:3000/files/${imageURL5}`;
 
                 document.getElementById('trending5-date').textContent = date5;
