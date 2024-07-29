@@ -4,8 +4,9 @@ window.onload = function () {
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
     postid = urlParams.get("id");
+    alert(urlParams);
 
-    fetch(`http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${urlParams.get("id")}`, {
+    fetch(`http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${postId}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
