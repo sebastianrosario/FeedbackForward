@@ -15,10 +15,10 @@ window.onload = function() {
     .then(data => {
         if (data.success) {
             document.getElementById('username').innerHTML = data.message.username;
-            document.getElementById('bio').innerHTML = data.message.bio;
-            const imageURL = data.message.picPath;
-            const imageElement = document.getElementById('image');
-            imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
+            //document.getElementById('bio').innerHTML = data.message.bio;
+            //const imageURL = data.message.picPath;
+            //const imageElement = document.getElementById('image');
+            //imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
             console.log(data);
         } else {
             console.error('Failed to fetch user data');
@@ -124,7 +124,7 @@ window.onload = function() {
                 document.getElementById('trending5-user').textContent = user5;
                 document.getElementById('featuredTrending5-link').href = `post.html?id=${id5}`;
             }
-            
+
         } else {
             console.error('Failed to fetch trending posts.');
         }
