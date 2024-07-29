@@ -63,7 +63,7 @@ window.onload = function () {
                 document.getElementById('trending1-date').textContent = date1;
                 document.getElementById('trending1-title').textContent = title1;
                 document.getElementById('trending1-user').textContent = user1;
-                document.getElementById('featuredTrending1-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id1}`;
+                document.getElementById('featuredTrending1-link').href = `post.html?id=${id1}`;
 
                 //second element
                 
@@ -75,7 +75,7 @@ window.onload = function () {
                 document.getElementById('trending2-date').textContent = date2;
                 document.getElementById('trending2-title').textContent = title2;
                 document.getElementById('trending2-user').textContent = user2;
-                document.getElementById('featuredTrending2-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id2}`;
+                document.getElementById('featuredTrending2-link').href = `post.html?id=${id2}`;
 
                 //third element
                 const title3 = thirdItem.title;
@@ -86,7 +86,7 @@ window.onload = function () {
                 document.getElementById('trending3-date').textContent = date3;
                 document.getElementById('trending3-title').textContent = title3;
                 document.getElementById('trending3-user').textContent = user3;
-                document.getElementById('featuredTrending3-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id3}`;
+                document.getElementById('featuredTrending3-link').href = `post.html?id=${id3}`;
 
                 //forth element
                 const title4 = forthItem.title;
@@ -97,7 +97,7 @@ window.onload = function () {
                 document.getElementById('trending4-date').textContent = date4;
                 document.getElementById('trending4-title').textContent = title4;
                 document.getElementById('trending4-user').textContent = user4;
-                document.getElementById('featuredTrending4-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id4}`;
+                document.getElementById('featuredTrending4-link').href = `post.html?id=${id4}`;
 
                 //fith
                 const title5 = fithItem.title;
@@ -108,7 +108,7 @@ window.onload = function () {
                 document.getElementById('trending5-date').textContent = date5;
                 document.getElementById('trending5-title').textContent = title5;
                 document.getElementById('trending5-user').textContent = user5;
-                document.getElementById('featuredTrending5-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id5}`;
+                document.getElementById('featuredTrending5-link').href = `post.html?id=${id5}`;
             }
         } else {
             console.error('Failed to fetch trending posts.');
