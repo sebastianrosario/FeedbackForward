@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent the default form submission
         const query = searchInput.value.trim();
         if (query) {
-            window.location.href = `http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${encodeURIComponent(query)}`;
+            window.location.href = `.search.html?${encodeURIComponent(query)}`;
         } else {
             alert('Please enter a search term.');
         }
