@@ -61,7 +61,7 @@ window.onload = function () {
                 const id1 = firstItem._id;
 
                 const imageElement1 = document.getElementById('trending1-image');
-                const imageURL1 = firstItemItem.filePath;
+                const imageURL1 = firstItem.filePath;
                 imageElement1.src = `http://192.168.28.129:3000/files/${imageURL1}`;
 
                 document.getElementById('trending1-date').textContent = date1;
@@ -92,7 +92,7 @@ window.onload = function () {
                 const id3 = thirdItem._id;
 
                 const imageElement3 = document.getElementById('trending3-image');
-                const imageURL3 = thirdItemItem.filePath;
+                const imageURL3 = thirdItem.filePath;
                 imageElement3.src = `http://192.168.28.129:3000/files/${imageURL3}`;
 
                 document.getElementById('trending3-date').textContent = date3;
@@ -107,7 +107,7 @@ window.onload = function () {
                 const id4 = forthItem._id;
 
                 const imageElement4 = document.getElementById('trending4-image');
-                const imageURL4 = forthItemItem.filePath;
+                const imageURL4 = forthItem.filePath;
                 imageElement4.src = `http://192.168.28.129:3000/files/${imageURL4}`;
 
                 document.getElementById('trending4-date').textContent = date4;
@@ -122,7 +122,7 @@ window.onload = function () {
                 const id5 = fithItem._id;
 
                 const imageElement5 = document.getElementById('trending5-image');
-                const imageURL5 = secondItem.filePath;
+                const imageURL5 = firstItem.filePath;
                 imageElement5.src = `http://192.168.28.129:3000/files/${imageURL5}`;
 
                 document.getElementById('trending5-date').textContent = date5;
