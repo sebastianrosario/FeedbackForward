@@ -3,10 +3,9 @@ window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams);
     sessionStorage.setItem('url', urlParams.get("id"));
-    postid = urlParams.get("id");
-    alert(urlParams);
+    searchid = urlParams.get("id");
 
-    fetch(`http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${postId}`, {
+    fetch(`http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${searchid}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
