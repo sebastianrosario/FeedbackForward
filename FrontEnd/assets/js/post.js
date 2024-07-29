@@ -140,21 +140,23 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',  // Set content type if sending JSON
+                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
-                // If you need to send a body, include it here as a JSON string
-                body: JSON.stringify({})  // Example, add data if necessary
+                body: JSON.stringify({})  // Add data if necessary
             })
-            .then((response) => {
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.json();  // Assuming JSON response
+                return response.json();
             })
-            .then((result) => console.log(result))
-            .catch((error) => console.error('Error:', error));
-                
+            .then(data => console.log('Success:', data))
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('An error occurred. Please check the console for details.');
+            });            
+
             window.location.reload();
         }
     });
