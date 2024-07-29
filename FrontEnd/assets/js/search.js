@@ -17,7 +17,7 @@ window.onload = function () {
         if (data.success) {
             const posts = data.message;
 
-            if (posts.length > 0) {
+            if (posts.length >  0) {
                 const firstItem = posts[0];
                 const secondItem = posts[1];
                 const thirdItem = posts[2];
