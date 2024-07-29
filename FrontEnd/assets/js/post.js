@@ -135,14 +135,16 @@ document.addEventListener('DOMContentLoaded', function() {
             likeButton.innerHTML = '<i class="ri-thumb-up-fill"></i> Liked';
             localStorage.setItem('likedPost', 'true');
 
-            fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
-                },
-                body: JSON.stringify({})  // Add the data to send in JSON format
-            })
+            const myHeaders = new Headers();
+            myHeaders.append("Authorization", 'Bearer ' + sessionStorage.getItem('key'));
+
+            const requestOptions = {
+                method: "PUT",
+                headers: myHeaders,
+                redirect: "follow"
+              };
+
+            fetch(`192.168.28.129:3000/api/posts/${postid}/upvote`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
