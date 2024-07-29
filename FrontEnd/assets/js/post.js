@@ -32,6 +32,7 @@ window.onload = function() {
         document.getElementById("content").innerHTML = data.message.content;
         document.getElementById("tags").innerHTML = data.message.tags;
         document.getElementById("author").innerHTML = data.message.username;
+        document.getElementById("Likes").innerHTML= "Likes: " + date.message.upvotes;
         //href = http://127.0.0.1:3000/FrontEnd/user.html?id=FeedbackFowardAdmin
         const imageElement = document.getElementById('image');
         imageElement.src = `http://192.168.28.129:3000/files/${imageURL}`;
@@ -133,6 +134,17 @@ document.addEventListener('DOMContentLoaded', function() {
             likeButton.classList.add('liked');
             likeButton.innerHTML = '<i class="ri-thumb-up-fill"></i> Liked';
             localStorage.setItem('likedPost', 'true');
+            fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+                },
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+            window.location.reload();
         }
     });
 });
