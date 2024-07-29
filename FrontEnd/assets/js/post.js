@@ -137,15 +137,24 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('likedPost', 'true');
 
             const myHeaders = new Headers();
-              fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`,{
+            fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, {
                 method: 'PUT',
                 headers: {
+                    'Content-Type': 'application/json',  // Set content type if sending JSON
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
-                })
-                .then((response) => response.text())
-                .then((result) => console.log(result))
-                .catch((error) => console.error(error));      
+                // If you need to send a body, include it here as a JSON string
+                body: JSON.stringify({})  // Example, add data if necessary
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();  // Assuming JSON response
+            })
+            .then((result) => console.log(result))
+            .catch((error) => console.error('Error:', error));
+                
             window.location.reload();
         }
     });
