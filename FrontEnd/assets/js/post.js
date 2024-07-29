@@ -137,15 +137,15 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('likedPost', 'true');
 
             const myHeaders = new Headers();
-            myHeaders.append("Authorization", 'Bearer ' + sessionStorage.getItem('key'));
 
-            const requestOptions = {
-                method: "PUT",
-                headers: myHeaders,
-                redirect: "follow"
-              };
 
-              fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, requestOptions)
+              fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`,{
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('key')
+                },
+                })
+                
               .then((response) => {
                   if (!response.ok) {
                       throw new Error('Network response was not ok');
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
               .catch(error => {
                   console.error('Error submitting comment:', error);
               });        
-              
+
             window.location.reload();
         }
     });
