@@ -45,7 +45,6 @@ window.onload = function () {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Trending posts fetched successfully!");
             const posts = data.message;
 
             if (posts.length > 0) {

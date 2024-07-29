@@ -8,7 +8,6 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
     const fileInput = document.getElementById('fileName').files[0];
 
     if (fileInput) {
-        alert(fileInput)
         const formData = new FormData();
         formData.append('file', fileInput);
 
@@ -22,11 +21,9 @@ document.getElementById('blogForm').addEventListener('submit', function(event) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Upload successful');
                 console.log("success");
                 if (data.file) {
                     const filename = data.file.filename;
-                    alert(filename);
                     submitPost(title, body, category, filename);
                 }
             } else {

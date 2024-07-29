@@ -75,7 +75,6 @@ window.onload = function() {
         const submitButton = document.getElementById('submitComment');
         submitButton.addEventListener('click', function() {
             const textInput = document.getElementById('comment-text').value; // Corrected line
-            alert(textInput);
         });
     });
 }

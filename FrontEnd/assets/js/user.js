@@ -14,7 +14,6 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(data.message._id);
             document.getElementById('username').innerHTML = data.message.username;
             document.getElementById('bio').innerHTML = data.message.bio;
             const imageURL = data.message.picPath;
@@ -39,7 +38,6 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Trending posts fetched successfully!");
             const posts = data.message;
 
             if (posts.length > 0) {
