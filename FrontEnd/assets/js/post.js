@@ -152,11 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => console.log('Success:', data))
+            
             .catch(error => {
                 console.error('Fetch error:', error);
-                alert('An error occurred. Please check the console for details.');
             });            
-
             window.location.reload();
         }
     });
