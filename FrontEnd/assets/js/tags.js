@@ -5,7 +5,7 @@ window.onload = function () {
     sessionStorage.setItem('url', urlParams.get("id"));
     searchid = urlParams.get("id");
 
-    fetch(`http://192.168.28.129:3000/api/posts/filter/tags=?q=${searchid}&sort=top`, {
+    fetch(`http://192.168.28.129:3000//api/posts/filter/tags?q=gaming&sort=top`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
