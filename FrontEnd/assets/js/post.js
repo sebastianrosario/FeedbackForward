@@ -134,8 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
             likeButton.classList.add('liked');
             likeButton.innerHTML = '<i class="ri-thumb-up-fill"></i> Liked';
             localStorage.setItem('likedPost', 'true');
+
             fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
