@@ -141,12 +141,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
+                body: JSON.stringify({})  // Add the data to send in JSON format
             })
-            .then((response) => response.text())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();  // Assuming the response is JSON
+            })
             .then((result) => console.log(result))
             .catch(error => {
                 console.error('Error submitting comment:', error);
-            });
+            });            
             window.location.reload();
         }
     });
