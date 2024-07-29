@@ -24,7 +24,7 @@ window.onload = function () {
             document.getElementById('featuredArticle1-date').textContent = date;
             document.getElementById('featuredArticle1-title').textContent = title;
             document.getElementById('featuredArticle1-username').textContent = user;
-            document.getElementById('featuredArticle1-link').href = `http://127.0.0.1:3000/FrontEnd/post.html?id=${id}`;
+            document.getElementById('featuredArticle1-link').href = `post.html?id=${id}`;
 
         } else {
             console.error('Failed to fetch article data.');

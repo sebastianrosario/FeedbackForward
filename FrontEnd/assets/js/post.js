@@ -137,8 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('likedPost', 'true');
 
             const myHeaders = new Headers();
-
-
               fetch(`http://192.168.28.129:3000/api/posts/${postid}/upvote`,{
                 method: 'POST',
                 headers: {
