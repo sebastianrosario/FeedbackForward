@@ -72,12 +72,13 @@ window.onload = function () {
                 const user2 = secondItem.username;
                 const id2 = secondItem._id;
                 const imageElement2 = document.getElementById('trending2-image');
+                const imageURL2 = data.message.filePath;
 
                 document.getElementById('trending2-date').textContent = date2;
                 document.getElementById('trending2-title').textContent = title2;
                 document.getElementById('trending2-user').textContent = user2;
                 document.getElementById('featuredTrending2-link').href = `post.html?id=${id2}`;
-                imageElement2.src = `http://192.168.28.129:3000/files/${imageURL}`;
+                imageElement2.src = `http://192.168.28.129:3000/files/${imageURL2}`;
 
                 //third element
                 const title3 = thirdItem.title;
