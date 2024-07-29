@@ -16,136 +16,156 @@
     <script src="./assets/js/main.js"></script>
 </head>
 
-<header class= "header" id = "header">
+</body>
 
-    <nav class="navbar container">
-        <a href="./index.html">
-            <h2 class = "logo">FeedBack Foward</h2>
+    <header class= "header" id = "header">
+
+        <nav class="navbar container">
+            <a href="./index.html">
+                <h2 class = "logo">FeedBack Foward</h2>
+            </a>
+            <dib class="menu" id ="menu">
+                <li class = "list-item">
+                    <a href="index.html" class="list-link current">Home</a>
+                </li>
+                <li class = "list-item">
+                    <a href="categories.html" class="list-link">Categories</a>
+                </li>
+                <li class = "list-item">
+                    <a href="news.html" class="list-link">News</a>
+                </li>
+                <li class = "list-item">
+                    <a href="contact.html" class="list-link">Contact</a>
+                </li>
+                <li class = "list-item screen-lg-hidden">
+                    <a href="signin.html" class="list-link">Sign in</a>
+                </li>
+                <li class = "list-item screen-lg-hidden">
+                    <a href="signup.html" class="list-link" > Sign up</a>
+                </li>
+                <li class = "list-item screen-lg-hidden">
+                    <a href="user.html" class="list-link" > User Holder</a>
+                </li>
+            </dib>
+
+            <!-- may delete later not sure yet-->
+            <div class="list list right">
+
+                <button class="btn place-items-center" id="New Post">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <button class="btn place-items-center" id="search-icon">
+                    <i class="ri-search-line"></i>
+                </button>
+
+                <!--Change below later to something like this https://codepen.io/Tkashiro/pen/jOBrXx -->
+                <button class="btn place-items-center screen-lg-hidden menu-toggle-icon" id="menu-toggle-icon">
+                    <i class="ri-menu-3-line open-menu-icon"></i>
+                    <i class="ri-close-line close-menu-icon"></i>
+                </button>
+
+                <a href="signup.html" class ='list-link screen-sm-hidden id="signipbutton" '>Sign Up</a>
+                <a href="signin.html" class ='list-link screen-sm-hidden id="signinbutton" '>Sign In</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="search-form-container container" id="search-form-container">
+
+        <div class="form-container-inner">
+            <form action="" class="form" id="searchForm">
+                <input class="form-input" type="text" placeholder="What are you looking for?" id="search">
+                <button class="btn form-btn" type="submit" id="submit">
+                    <i class="ri-search-line"></i>
+                </button>
+            </form>
+            <span class="form-note">Or press ESC to close.</span>
+        </div>
+
+        <button class="btn form-close-btn place-items-center" id="form-close-btn">
+            <i class="ri-close-line"></i>
+        </button>
+    </div>
+
+    <div class="sidebar d-grid">
+
+        <h3 class="title featured-content-title">Tag Results</h3>
+
+        <a id="featuredTrending1-link" href="./post.html" class="trending-news-box">
+            <div class="trending-news-img-box">
+                <span class="trending-number place-items-center">01</span>
+                <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image" id="trending1-image">
+            </div>
+            <div class="trending-news-data">
+                <div class="article-data">
+                    <span id="trending1-date"></span>
+                    <span class="article-data-spacer"></span>
+                    <span id="trending1-user"></span>
+                </div>
+                <h3 class="title article-title" id="trending1-title"></h3>
+            </div>
         </a>
-        <dib class="menu" id ="menu">
-            <li class = "list-item">
-                <a href="index.html" class="list-link current">Home</a>
-            </li>
-            <li class = "list-item">
-                <a href="categories.html" class="list-link">Categories</a>
-            </li>
-            <li class = "list-item">
-                <a href="news.html" class="list-link">News</a>
-            </li>
-            <li class = "list-item">
-                <a href="contact.html" class="list-link">Contact</a>
-            </li>
-            <li class = "list-item screen-lg-hidden">
-                <a href="signin.html" class="list-link">Sign in</a>
-            </li>
-            <li class = "list-item screen-lg-hidden">
-                <a href="signup.html" class="list-link" > Sign up</a>
-            </li>
-            <li class = "list-item screen-lg-hidden">
-                <a href="user.html" class="list-link" > User Holder</a>
-            </li>
-        </dib>
 
-        <!-- may delete later not sure yet-->
-        <div class="list list right">
-
-            <button class="btn place-items-center" id="New Post">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-
-            <button class="btn place-items-center" id="search-icon">
-                <i class="ri-search-line"></i>
-            </button>
-
-            <!--Change below later to something like this https://codepen.io/Tkashiro/pen/jOBrXx -->
-            <button class="btn place-items-center screen-lg-hidden menu-toggle-icon" id="menu-toggle-icon">
-                <i class="ri-menu-3-line open-menu-icon"></i>
-                <i class="ri-close-line close-menu-icon"></i>
-            </button>
-
-            <a href="signup.html" class ='list-link screen-sm-hidden id="signipbutton" '>Sign Up</a>
-            <a href="signin.html" class ='list-link screen-sm-hidden id="signinbutton" '>Sign In</a>
-        </div>
-    </nav>
-</header>
-<div class="sidebar d-grid">
-
-    <h3 class="title featured-content-title">Tag Results</h3>
-
-    <a id="featuredTrending1-link" href="./post.html" class="trending-news-box">
-        <div class="trending-news-img-box">
-            <span class="trending-number place-items-center">01</span>
-            <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image" id="trending1-image">
-        </div>
-        <div class="trending-news-data">
-            <div class="article-data">
-                <span id="trending1-date"></span>
-                <span class="article-data-spacer"></span>
-                <span id="trending1-user"></span>
+        <a id="featuredTrending2-link" href="./post.html" class="trending-news-box">
+            <div class="trending-news-img-box">
+                <span class="trending-number place-items-center">02</span>
+                <img src="./assets/images/trending/trending_2.jpg" alt="" class="article-image" id="trending2-image">
             </div>
-            <h3 class="title article-title" id="trending1-title"></h3>
-        </div>
-    </a>
-
-    <a id="featuredTrending2-link" href="./post.html" class="trending-news-box">
-        <div class="trending-news-img-box">
-            <span class="trending-number place-items-center">02</span>
-            <img src="./assets/images/trending/trending_2.jpg" alt="" class="article-image" id="trending2-image">
-        </div>
-        <div class="trending-news-data">
-            <div class="article-data">
-                <span id="trending2-date"></span>
-                <span class="article-data-spacer"></span>
-                <span id="trending2-user"></span>
+            <div class="trending-news-data">
+                <div class="article-data">
+                    <span id="trending2-date"></span>
+                    <span class="article-data-spacer"></span>
+                    <span id="trending2-user"></span>
+                </div>
+                <h3 class="title article-title" id="trending2-title"></h3>
             </div>
-            <h3 class="title article-title" id="trending2-title"></h3>
-        </div>
-    </a>
+        </a>
 
-    <a id="featuredTrending3-link" href="./post.html" class="trending-news-box">
-        <div class="trending-news-img-box">
-            <span class="trending-number place-items-center">03</span>
-            <img src="./assets/images/trending/trending_3.jpg" alt="" class="article-image" id="trending3-image">
-        </div>
-        <div class="trending-news-data">
-            <div class="article-data">
-                <span id="trending3-date"></span>
-                <span class="article-data-spacer"></span>
-                <span id="trending3-user"></span>
+        <a id="featuredTrending3-link" href="./post.html" class="trending-news-box">
+            <div class="trending-news-img-box">
+                <span class="trending-number place-items-center">03</span>
+                <img src="./assets/images/trending/trending_3.jpg" alt="" class="article-image" id="trending3-image">
             </div>
-            <h3 class="title article-title" id="trending3-title"></h3>
-        </div>
-    </a>
-
-    <a id="featuredTrending4-link" href="./post.html" class="trending-news-box">
-        <div class="trending-news-img-box">
-            <span class="trending-number place-items-center">04</span>
-            <img src="./assets/images/trending/trending_4.jpg" alt="" class="article-image" id="trending4-image">
-        </div>
-        <div class="trending-news-data">
-            <div class="article-data">
-                <span id="trending4-date"></span>
-                <span class="article-data-spacer"></span>
-                <span id="trending4-user"></span>
+            <div class="trending-news-data">
+                <div class="article-data">
+                    <span id="trending3-date"></span>
+                    <span class="article-data-spacer"></span>
+                    <span id="trending3-user"></span>
+                </div>
+                <h3 class="title article-title" id="trending3-title"></h3>
             </div>
-            <h3 class="title article-title" id="trending4-title"></h3>
-        </div>
-    </a>
+        </a>
 
-    <a id="featuredTrending5-link" href="./post.html" class="trending-news-box">
-        <div class="trending-news-img-box">
-            <span class="trending-number place-items-center">05</span>
-            <img src="./assets/images/trending/trending_5.jpg" alt="" class="article-image" id="trending5-image">
-        </div>
-        <div class="trending-news-data">
-            <div class="article-data">
-                <span id="trending5-date"></span>
-                <span class="article-data-spacer"></span>
-                <span id="trending5-user"></span>
+        <a id="featuredTrending4-link" href="./post.html" class="trending-news-box">
+            <div class="trending-news-img-box">
+                <span class="trending-number place-items-center">04</span>
+                <img src="./assets/images/trending/trending_4.jpg" alt="" class="article-image" id="trending4-image">
             </div>
-            <h3 class="title article-title" id="trending5-title"></h3>
-        </div>
-    </a>
+            <div class="trending-news-data">
+                <div class="article-data">
+                    <span id="trending4-date"></span>
+                    <span class="article-data-spacer"></span>
+                    <span id="trending4-user"></span>
+                </div>
+                <h3 class="title article-title" id="trending4-title"></h3>
+            </div>
+        </a>
 
-</div>
+        <a id="featuredTrending5-link" href="./post.html" class="trending-news-box">
+            <div class="trending-news-img-box">
+                <span class="trending-number place-items-center">05</span>
+                <img src="./assets/images/trending/trending_5.jpg" alt="" class="article-image" id="trending5-image">
+            </div>
+            <div class="trending-news-data">
+                <div class="article-data">
+                    <span id="trending5-date"></span>
+                    <span class="article-data-spacer"></span>
+                    <span id="trending5-user"></span>
+                </div>
+                <h3 class="title article-title" id="trending5-title"></h3>
+            </div>
+        </a>
+
+    </div>
 </body>
