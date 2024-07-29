@@ -72,3 +72,39 @@ input[type="submit"] {
   .button:hover{
     background-color: rgba(230, 91, 5, 0.550);
   }
+
+  .like-button {
+    background-color: rgb(230, 93,5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.like-button.liked {
+    background-color: #4caf50;
+}
+
+.like-button:hover {
+    transform: scale(1.05);
+}
+
+.like-button i {
+    margin-right: 8px;
+}
+
+.user a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.user a:hover {
+  color: #0056b3;
+}

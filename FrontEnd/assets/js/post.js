@@ -110,3 +110,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButton = document.getElementById('likeButton');
+
+    // Check if the post is liked or not
+    const isLiked = localStorage.getItem('likedPost') === 'true';
+
+    // Update button state
+    if (isLiked) {
+        likeButton.classList.add('liked');
+        likeButton.innerHTML = '<i class="ri-thumb-up-fill"></i> Liked';
+    }
+
+    likeButton.addEventListener('click', function() {
+        // Toggle the like state
+        if (likeButton.classList.contains('liked')) {
+            likeButton.classList.remove('liked');
+            likeButton.innerHTML = '<i class="ri-thumb-up-line"></i> Like';
+            localStorage.setItem('likedPost', 'false');
+        } else {
+            likeButton.classList.add('liked');
+            likeButton.innerHTML = '<i class="ri-thumb-up-fill"></i> Liked';
+            localStorage.setItem('likedPost', 'true');
+        }
+    });
+});
