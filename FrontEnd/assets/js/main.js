@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent the default form submission
         const query = searchInput.value.trim();
         if (query) {
-            window.location.href = `.search.html?${encodeURIComponent(query)}`;
+            window.location.href = `search.html?${encodeURIComponent(query)}`;
         } else {
             alert('Please enter a search term.');
         }
