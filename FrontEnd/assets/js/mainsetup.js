@@ -71,11 +71,13 @@ window.onload = function () {
                 const date2 = new Date(secondItem.createdAt).toLocaleDateString(); // Format date
                 const user2 = secondItem.username;
                 const id2 = secondItem._id;
+                const imageElement2 = document.getElementById('trending2-image');
 
                 document.getElementById('trending2-date').textContent = date2;
                 document.getElementById('trending2-title').textContent = title2;
                 document.getElementById('trending2-user').textContent = user2;
                 document.getElementById('featuredTrending2-link').href = `post.html?id=${id2}`;
+                imageElement2.src = `http://192.168.28.129:3000/files/${imageURL}`;
 
                 //third element
                 const title3 = thirdItem.title;
