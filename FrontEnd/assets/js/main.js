@@ -46,6 +46,21 @@ window.addEventListener('keyup', (event) => {
     if(event.key === 'Escape') searchContainer.classList.remove('activated');
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('search');
+
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        const query = searchInput.value.trim();
+        if (query) {
+            window.location.href = `http://192.168.28.129:3000/api/posts/filter/search?sort=top&query=${encodeURIComponent(query)}`;
+        } else {
+            alert('Please enter a search term.');
+        }
+    });
+});
+
 // Switch theme/add to local storage
 const body = document.body;
 const themeToggleBtn = selectElement('#theme-toggle-btn');
