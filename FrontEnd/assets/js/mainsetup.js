@@ -72,7 +72,7 @@ window.onload = function () {
                 const user2 = secondItem.username;
                 const id2 = secondItem._id;
                 const imageElement2 = document.getElementById('trending2-image');
-                const imageURL2 = data.message.filePath;
+                const imageURL2 = secondItem.filePath;
 
                 document.getElementById('trending2-date').textContent = date2;
                 document.getElementById('trending2-title').textContent = title2;
