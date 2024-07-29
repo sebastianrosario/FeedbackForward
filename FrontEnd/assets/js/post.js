@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
             })
+            .then((response) => response.text())
+            .then((result) => console.log(result))
             .catch(error => {
                 console.error('Error submitting comment:', error);
             });
