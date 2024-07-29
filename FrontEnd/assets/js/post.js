@@ -145,18 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Authorization': 'Bearer ' + sessionStorage.getItem('key')
                 },
                 })
-                
-              .then((response) => {
-                  if (!response.ok) {
-                      throw new Error('Network response was not ok');
-                  }
-                  return response.json();  // Assuming the response is JSON
-              })
-              .then((result) => console.log(result))
-              .catch(error => {
-                  console.error('Error submitting comment:', error);
-              });        
-
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));      
             window.location.reload();
         }
     });
