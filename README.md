@@ -91,20 +91,37 @@ npm run lint
 ## Structure for the Back-End:
 
 /feedback-forward/src
+
 │
+
 ├── /assets
+
 │   ├── /css
+
 │   │   ├── styles.css
+
 │   │   └── ....css
+
 │   ├── /js
+
 │   │   ├── main.js
+
 │   │   ├── swiper-config.js
+
 │   │   └── ....js
+
 │   └── /images
+
 │       └── ...png
+
 │
+
 ├── search.html
+
 ├── signup.html
+
 ├─ sighin.html
+
 │── index.html
+
 └── ...html
