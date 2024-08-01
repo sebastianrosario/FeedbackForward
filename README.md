@@ -50,7 +50,7 @@ npm run build
 npm run lint
 ```
 
-### Structure for front end:
+### Structure for the Front-End:
 
 /feedback-forward/frontend 
 
@@ -87,3 +87,24 @@ npm run lint
 │── index.html 
 
 └── ...html 
+
+## Structure for the Back-End:
+
+/feedback-forward/src
+│
+├── /assets
+│   ├── /css
+│   │   ├── styles.css
+│   │   └── ....css
+│   ├── /js
+│   │   ├── main.js
+│   │   ├── swiper-config.js
+│   │   └── ....js
+│   └── /images
+│       └── ...png
+│
+├── search.html
+├── signup.html
+├─ sighin.html
+│── index.html
+└── ...html
