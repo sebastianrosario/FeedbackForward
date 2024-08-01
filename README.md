@@ -50,7 +50,9 @@ npm run build
 npm run lint
 ```
 
-/feedback-forward Structure for front end
+### Structure for front end:
+
+/feedback-forward/frontend 
 
 │ 
 
