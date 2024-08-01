@@ -49,3 +49,39 @@ npm run build
 ```sh
 npm run lint
 ```
+
+/feedback-forward Structure for front end
+
+│ 
+
+├── /assets 
+
+│   ├── /css 
+
+│   │   ├── styles.css 
+
+│   │   └── ....css 
+
+│   ├── /js 
+
+│   │   ├── main.js 
+
+│   │   ├── swiper-config.js 
+
+│   │   └── ....js 
+
+│   └── /images 
+
+│       └── ...png 
+
+│ 
+
+├── search.html 
+
+├── signup.html 
+
+├─ sighin.html 
+
+│── index.html 
+
+└── ...html 
